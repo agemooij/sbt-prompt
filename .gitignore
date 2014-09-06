@@ -1,0 +1,45 @@
+.class
+*.log
+.history
+
+# sbt specific
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+.history
+
+project/activator-sbt*
+
+# Scala-IDE specific
+.scala_dependencies
+
+# Eclipse specific
+.project
+.classpath
+.cache
+.settings
+
+# Sublime specific
+sublime.sbt
+*.sublime
+*.sublime-project
+*.sublime-workspace
+
+# Data
+data/*
+
+# IDEA InteliJ
+.idea/*
+.idea_modules/*
+rebb-website/.idea/
+rebb-website/.idea_modules/
+
+# twirl
+rebb-website/main/generated-twirl-sources/*
+
+revision.txt
+
+.DS_Store
