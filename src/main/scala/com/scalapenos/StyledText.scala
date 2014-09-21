@@ -1,11 +1,11 @@
 package com.scalapenos
 
 
-case class StyledText(text: String, style: Style = Style.Defaults) {
+case class StyledText(text: String, style: Style = Styles.NoStyle) {
   lazy val rendered = style.render(text)
-  def withPrefix(prefix: String) = copy(text = prefix + text)
-  def withSuffix(suffix: String) = copy(text = text + suffix)
   override def toString = rendered
+
+  def mapText(f: String => String) = copy(text = f(text))
 }
 
 /**
@@ -60,8 +60,8 @@ case class Style(background: Color = Color.Default, foreground: Color = Color.De
   def bgWhite = bg(Color.white)
 }
 
-object Style {
-  val Defaults = Style()
+trait Styles {
+  val NoStyle = Style()
 
   def bg(color: Color) = Style(background = color)
   def bg(color: Int) = Style(background = Color(color))
@@ -85,3 +85,5 @@ object Style {
   val bgCyan = bg(Color.cyan)
   val bgWhite = bg(Color.white)
 }
+
+object Styles extends Styles

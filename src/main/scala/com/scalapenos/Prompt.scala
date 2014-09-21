@@ -4,7 +4,7 @@ import sbt._
 import Keys._
 
 
-case class Prompt(segments: Seq[Segment], separator: Separator) {
+case class Prompt(segments: Seq[Segment], separator: Separator = Separators.NoSeparator) {
   def render(state: State): String = {
     val styled = segments.map(_.render(state))
     var separated = new collection.mutable.ArrayBuffer[StyledText]((styled.size * 2) - 1)
@@ -29,26 +29,37 @@ case class Prompt(segments: Seq[Segment], separator: Separator) {
 
 case class Separator(text: String, style: (Style, Style) => Style)
 
+trait Separators extends Styles {
+  val NoSeparator = Separator("", (_, _) => NoStyle)
+}
+object Separators extends Separators
+
+
+
 case class Segment(content: State => StyledText) {
   def render(state: State): StyledText = content(state)
-  def withPrefix(prefix: String) = Segment(content.andThen(_.withPrefix(prefix)))
-  def withSuffix(suffix: String) = Segment(content.andThen(_.withSuffix(suffix)))
+
+  def mapText(f: String => String) = Segment(content.andThen(_.mapText(f)))
+
+  def pad(padding: String) = mapText(text => padding + text + padding)
+  def padLeft(prefix: String) = mapText(text => prefix + text)
+  def padRight(suffix: String) = mapText(text => text + suffix)
 }
 
-object Segment {
+trait Segments extends Styles {
   def text(content: String, style: Style): Segment = text(_ => content, style)
   def text(content: State => String, style: Style): Segment = Segment(state => StyledText(content(state), style))
 
-  def currentProject(style: Style) = Segment( state => {
+  def currentProject(style: Style = NoStyle) = Segment( state => {
     val extracted = Project.extract(state)
     val project = extracted.currentRef.project
     val root = extracted.rootProject(extracted.currentRef.build)
 
-    StyledText(if (project == root) s" ${project} " else s" ${root}/${project} ", style)
+    StyledText(if (project == root) project else s"${root}/${project}", style)
   })
 
-  def gitBranch(clean: Style, dirty: Style) = Segment( state => {
-    val branch = s" ${GitSupport.currentBranch(state)} "
+  def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle) = Segment( state => {
+    val branch = s"${GitSupport.currentBranch(state)}"
 
     if (GitSupport.isWorkingCopyDirty(state)) StyledText(branch, dirty)
     else StyledText(branch, clean)
