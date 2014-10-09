@@ -13,7 +13,7 @@ lazy val fancyPrompt = (project in file(".")).
     licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
     // promptSeparator := NoSeparator,
     promptSegments := Seq(
-      gitBranch(clean = green, dirty = yellow).padLeft("[").padRight("] "),
+      gitBranch(clean = fg(green), dirty = fg(yellow)).padLeft("[").padRight("] "),
       currentProject(fg(245)),
       text(": ", NoStyle)
     )

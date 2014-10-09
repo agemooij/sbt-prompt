@@ -16,7 +16,7 @@ object SbtPrompt extends AutoPlugin with Segments with Separators {
   override val projectSettings = Seq(
     promptSeparator := NoSeparator,
     promptSegments := Seq(
-      gitBranch(clean = green, dirty = yellow).padLeft("[").padRight("] "),
+      gitBranch(clean = fg(green), dirty = fg(yellow)).padLeft("[").padRight("] "),
       currentProject(fg(245)),
       text(": ", NoStyle)
     ),
