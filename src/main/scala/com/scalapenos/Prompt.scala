@@ -34,7 +34,6 @@ object Separators extends Separators
 
 case class Segment(content: State ⇒ StyledText) {
   def render(state: State): StyledText = content(state)
-
   def mapText(f: String ⇒ String) = Segment(content.andThen(_.mapText(f)))
 
   def pad(padding: String) = mapText(text ⇒ padding + text + padding)
@@ -46,7 +45,7 @@ trait Segments extends Styles {
   def text(content: String, style: Style): Segment = text(_ ⇒ content, style)
   def text(content: State ⇒ String, style: Style): Segment = Segment(state ⇒ StyledText(content(state), style))
 
-  def currentProject(style: Style = NoStyle) = Segment(state ⇒ {
+  def currentProject(style: Style = NoStyle): Segment = Segment(state ⇒ {
     val extracted = Project.extract(state)
     val project = extracted.currentRef.project
     val root = extracted.rootProject(extracted.currentRef.build)
@@ -54,11 +53,11 @@ trait Segments extends Styles {
     StyledText(if (project == root) project else s"${root}/${project}", style)
   })
 
-  def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle) = Segment(state ⇒ {
+  def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle): Segment = Segment(state ⇒ {
     GitSupport.gitInfo(state) match {
       case Some(git) if git.dirty ⇒ StyledText(git.branch, dirty)
       case Some(git)              ⇒ StyledText(git.branch, clean)
-      case None                   ⇒ StyledText("")
+      case None                   ⇒ StyledText.Empty
     }
   })
 }
