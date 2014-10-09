@@ -58,10 +58,11 @@ trait Segments extends Styles {
     StyledText(if (project == root) project else s"${root}/${project}", style)
   })
 
-  def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle) = Segment( state => {
-    val branch = s"${GitSupport.currentBranch(state)}"
-
-    if (GitSupport.isWorkingCopyDirty(state)) StyledText(branch, dirty)
-    else StyledText(branch, clean)
+  def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle) = Segment(state ⇒ {
+    GitSupport.gitInfo(state) match {
+      case Some(git) if git.dirty ⇒ StyledText(git.branch, dirty)
+      case Some(git)              ⇒ StyledText(git.branch, clean)
+      case None                   ⇒ StyledText("")
+    }
   })
 }
