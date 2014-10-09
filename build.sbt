@@ -1,3 +1,5 @@
+import scalariform.formatter.preferences._
+
 name := "sbt-prompt"
 
 organization := "com.scalapenos"
@@ -19,3 +21,13 @@ sbtPlugin := true
 scalacOptions := Seq("-deprecation", "-encoding", "utf8")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.6.4")
+
+scalariformSettings
+
+ScalariformKeys.preferences := ScalariformKeys.preferences.value
+      .setPreference(AlignParameters, false)
+      .setPreference(AlignSingleLineCaseStatements, true)
+      .setPreference(AlignSingleLineCaseStatements.MaxArrowIndent, 90)
+      .setPreference(DoubleIndentClassDeclaration, true)
+      .setPreference(PreserveDanglingCloseParenthesis, true)
+      .setPreference(RewriteArrowSymbols, true)

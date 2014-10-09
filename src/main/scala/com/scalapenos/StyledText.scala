@@ -1,11 +1,10 @@
 package com.scalapenos
 
-
 case class StyledText(text: String, style: Style = Styles.NoStyle) {
   lazy val rendered = style.render(text)
   override def toString = rendered
 
-  def mapText(f: String => String) = copy(text = f(text))
+  def mapText(f: String ⇒ String) = copy(text = f(text))
 }
 
 /**

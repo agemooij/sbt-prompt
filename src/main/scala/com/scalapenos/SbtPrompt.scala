@@ -21,6 +21,6 @@ object SbtPrompt extends AutoPlugin with Segments with Separators {
       text(": ", NoStyle)
     ),
 
-    shellPrompt := (implicit state => Prompt(promptSegments.value, promptSeparator.value).render(state))
+    shellPrompt := (implicit state ⇒ Prompt(promptSegments.value, promptSeparator.value).render(state))
   )
 }
