@@ -25,7 +25,6 @@ object GitSupport {
     else {
       val (_, runner) = extracted.runTask(GitKeys.gitRunner, state)
 
-      // runner("rev-parse", "--abbrev-ref", "HEAD")(dir, NoOpSbtLogger)
       runner("symbolic-ref", "--short", "HEAD")(dir, NoOpSbtLogger)
     }
   }
@@ -48,6 +47,12 @@ object GitSupport {
   }
 
   private object NoOpSbtLogger extends Logger {
+    def trace(t: ⇒ Throwable): Unit = {}
+    def success(message: ⇒ String): Unit = {}
+    def log(level: Level.Value, message: ⇒ String): Unit = {}
+  }
+
+  private object DebugSbtLogger extends Logger {
     def trace(t: ⇒ Throwable): Unit = {}
     def success(message: ⇒ String): Unit = { println(s"SUCCESS: ${message}.") }
     def log(level: Level.Value, message: ⇒ String): Unit = { println(s"LOG: ${message}.") }
