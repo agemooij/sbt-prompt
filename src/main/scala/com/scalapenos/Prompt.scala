@@ -42,7 +42,9 @@ case class Promptlet(content: State ⇒ StyledText) {
   def padRight(suffix: String) = mapText(text ⇒ text + suffix)
 }
 
-trait Promptlets extends Styles {
+trait Promptlets extends BasicPromptlets with GitPromptlets
+
+trait BasicPromptlets extends Styles {
   def text(content: String, style: Style): Promptlet = text(_ ⇒ content, style)
   def text(content: State ⇒ String, style: Style): Promptlet = Promptlet(state ⇒ StyledText(content(state), style))
 
@@ -52,13 +54,5 @@ trait Promptlets extends Styles {
     val root = extracted.rootProject(extracted.currentRef.build)
 
     StyledText(if (project == root) project else s"${root}/${project}", style)
-  })
-
-  def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle): Promptlet = Promptlet(state ⇒ {
-    GitSupport.gitInfo(state) match {
-      case Some(git) if git.dirty ⇒ StyledText(git.branch, dirty)
-      case Some(git)              ⇒ StyledText(git.branch, clean)
-      case None                   ⇒ StyledText.Empty
-    }
   })
 }

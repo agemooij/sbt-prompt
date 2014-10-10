@@ -3,12 +3,20 @@ package com.scalapenos
 import sbt._
 import Keys._
 
-object GitSupport {
+trait GitPromptlets extends Styles {
   import com.typesafe.sbt.SbtGit._
 
-  case class GitInfo(branch: String, dirty: Boolean)
+  def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle): Promptlet = Promptlet(state ⇒ {
+    gitInfo(state) match {
+      case Some(git) if git.dirty ⇒ StyledText(git.branch, dirty)
+      case Some(git)              ⇒ StyledText(git.branch, clean)
+      case None                   ⇒ StyledText.Empty
+    }
+  })
 
-  def gitInfo(state: State)(implicit extracted: Extracted = Project.extract(state)): Option[GitInfo] = {
+  private case class GitInfo(branch: String, dirty: Boolean)
+
+  private def gitInfo(state: State)(implicit extracted: Extracted = Project.extract(state)): Option[GitInfo] = {
     implicit val dir = extracted.get(baseDirectory)
 
     if (!isGitRepo(dir)) None
@@ -58,3 +66,5 @@ object GitSupport {
     def log(level: Level.Value, message: ⇒ String): Unit = { println(s"LOG: ${message}.") }
   }
 }
+
+object GitPromptlets extends GitPromptlets
