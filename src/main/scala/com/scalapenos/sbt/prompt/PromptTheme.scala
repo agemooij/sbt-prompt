@@ -7,7 +7,7 @@ import Keys._
  * A PromptTheme contains a sequence of Promptlets and an optional Separator.
  * It can render itself into a prompt string based on the current SBT State.
  */
-case class PromptTheme(promptlets: Seq[Promptlet], separator: PromptletSeparator = PromptletSeparators.NoSeparator) {
+case class PromptTheme(promptlets: Seq[Promptlet], separator: PromptletSeparator) {
   def render(state: State): String = {
     val styled = promptlets.map(_.render(state)).filterNot(_.isEmpty)
     val separated = new StringBuilder
@@ -25,5 +25,12 @@ case class PromptTheme(promptlets: Seq[Promptlet], separator: PromptletSeparator
     }
 
     separated.toString
+  }
+}
+
+object PromptTheme {
+  def apply(promptlets: Seq[Promptlet]): PromptTheme = apply(promptlets, PromptletSeparators.NoSeparator)
+  def apply(promptlets: Seq[Promptlet], separator: (StyledText, StyledText) ⇒ StyledText): PromptTheme = {
+    apply(promptlets, PromptletSeparator(separator))
   }
 }
