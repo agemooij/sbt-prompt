@@ -6,22 +6,21 @@ import Keys._
 case class PromptTheme(promptlets: Seq[Promptlet], separator: Separator = Separators.NoSeparator) {
   def render(state: State): String = {
     val styled = promptlets.map(_.render(state)).filterNot(_.isEmpty)
-    var separated = new collection.mutable.ArrayBuffer[StyledText]((styled.size * 2) - 1)
+    val separated = new StringBuilder
     var previous: StyledText = null
 
     for (next ← styled) {
       if (previous == null) {
-        separated += next
+        separated ++= next.rendered
       } else {
-        separated += separator.render(previous, next)
-        separated += next
+        separated ++= separator.render(previous, next).rendered
+        separated ++= next.rendered
       }
 
       previous = next
     }
 
-    // TODO: inline the mkString part by using our own StringBuilder instead of first creating a new collection
-    separated.map(_.rendered).mkString("")
+    separated.toString
   }
 }
 
