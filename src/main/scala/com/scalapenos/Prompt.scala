@@ -13,7 +13,7 @@ case class PromptTheme(promptlets: Seq[Promptlet], separator: Separator = Separa
       if (previous == null) {
         separated += next
       } else {
-        separated += StyledText(separator.text, separator.style(previous.style, next.style))
+        separated += separator.render(previous, next)
         separated += next
       }
 
@@ -25,7 +25,9 @@ case class PromptTheme(promptlets: Seq[Promptlet], separator: Separator = Separa
   }
 }
 
-case class Separator(text: String, style: (Style, Style) ⇒ Style)
+case class Separator(text: String, styleCombiner: (Style, Style) ⇒ Style) {
+  def render(previous: StyledText, next: StyledText) = StyledText(text, styleCombiner(previous.style, next.style))
+}
 
 trait Separators extends Styles {
   val NoSeparator = Separator("", (_, _) ⇒ NoStyle)
