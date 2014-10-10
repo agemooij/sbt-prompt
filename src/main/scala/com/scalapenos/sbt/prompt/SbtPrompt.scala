@@ -1,7 +1,9 @@
-package com.scalapenos
+package com.scalapenos.sbt.prompt
 
 import sbt._
 import Keys._
+
+import promptlets._
 
 object SbtPrompt extends AutoPlugin with Promptlets with Separators {
   object autoImport {

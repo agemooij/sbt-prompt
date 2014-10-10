@@ -1,4 +1,4 @@
-package com.scalapenos
+package com.scalapenos.sbt.prompt
 
 case class Style(background: Color = Colors.NoColor, foreground: Color = Colors.NoColor) {
   def render(text: String) = s"${background.bg}${foreground.fg}${text}${Colors.NoColor.bg}${Colors.NoColor.fg}"

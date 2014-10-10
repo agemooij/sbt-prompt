@@ -1,8 +1,12 @@
-package com.scalapenos
+package com.scalapenos.sbt.prompt
 
 import sbt._
 import Keys._
 
+/**
+ * A PromptTheme is composed from a collection of Promptlets and an optional Separator.
+ * It can render itself into a prompt string based on the current SBT State.
+ */
 case class PromptTheme(promptlets: Seq[Promptlet], separator: Separator = Separators.NoSeparator) {
   def render(state: State): String = {
     val styled = promptlets.map(_.render(state)).filterNot(_.isEmpty)
@@ -24,15 +28,6 @@ case class PromptTheme(promptlets: Seq[Promptlet], separator: Separator = Separa
   }
 }
 
-case class Separator(text: String, styleCombiner: (Style, Style) ⇒ Style) {
-  def render(previous: StyledText, next: StyledText) = StyledText(text, styleCombiner(previous.style, next.style))
-}
-
-trait Separators extends Styles {
-  val NoSeparator = Separator("", (_, _) ⇒ NoStyle)
-}
-object Separators extends Separators
-
 case class Promptlet(content: State ⇒ StyledText) {
   def render(state: State): StyledText = content(state)
   def mapText(f: String ⇒ String) = Promptlet(content.andThen(_.mapText(f)))
@@ -42,17 +37,11 @@ case class Promptlet(content: State ⇒ StyledText) {
   def padRight(suffix: String) = mapText(text ⇒ text + suffix)
 }
 
-trait Promptlets extends BasicPromptlets with GitPromptlets
-
-trait BasicPromptlets extends Styles {
-  def text(content: String, style: Style): Promptlet = text(_ ⇒ content, style)
-  def text(content: State ⇒ String, style: Style): Promptlet = Promptlet(state ⇒ StyledText(content(state), style))
-
-  def currentProject(style: Style = NoStyle): Promptlet = Promptlet(state ⇒ {
-    val extracted = Project.extract(state)
-    val project = extracted.currentRef.project
-    val root = extracted.rootProject(extracted.currentRef.build)
-
-    StyledText(if (project == root) project else s"${root}/${project}", style)
-  })
+case class Separator(text: String, styleCombiner: (Style, Style) ⇒ Style) {
+  def render(previous: StyledText, next: StyledText) = StyledText(text, styleCombiner(previous.style, next.style))
 }
+
+trait Separators extends Styles {
+  val NoSeparator = Separator("", (_, _) ⇒ NoStyle)
+}
+object Separators extends Separators

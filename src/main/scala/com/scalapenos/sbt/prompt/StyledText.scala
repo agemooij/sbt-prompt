@@ -1,4 +1,4 @@
-package com.scalapenos
+package com.scalapenos.sbt.prompt
 
 sealed trait StyledText {
   def text: String

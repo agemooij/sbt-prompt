@@ -1,4 +1,5 @@
-package com.scalapenos
+package com.scalapenos.sbt.prompt
+package promptlets
 
 import sbt._
 import Keys._

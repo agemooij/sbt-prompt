@@ -1,4 +1,4 @@
-package com.scalapenos
+package com.scalapenos.sbt.prompt
 
 /**
  * Represents the ANSI 256 colorspace. For some good references, see:
