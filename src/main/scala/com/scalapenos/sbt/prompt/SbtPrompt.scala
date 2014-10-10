@@ -5,7 +5,7 @@ import Keys._
 
 import promptlets._
 
-object SbtPrompt extends AutoPlugin with Promptlets with Separators {
+object SbtPrompt extends AutoPlugin with Promptlets with PromptletSeparators {
   object autoImport {
     val promptTheme = settingKey[PromptTheme]("A theme for rendering the SBT shell prompt.")
   }
@@ -15,12 +15,16 @@ object SbtPrompt extends AutoPlugin with Promptlets with Separators {
   override def trigger = allRequirements
 
   override val projectSettings = Seq(
+    /** The default theme. */
     promptTheme := PromptTheme(Seq(
       gitBranch(clean = fg(green), dirty = fg(yellow)).padLeft("[").padRight("] "),
-      currentProject(fg(245)),
+      currentProject(),
       text(": ", NoStyle)
     )),
 
+    /**
+     * Sets the SBT shell prompt to a function that renders the configured prompt theme.
+     */
     shellPrompt := (implicit state ⇒ promptTheme.value.render(state))
   )
 }

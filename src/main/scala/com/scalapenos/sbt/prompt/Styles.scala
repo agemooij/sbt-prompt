@@ -1,5 +1,11 @@
 package com.scalapenos.sbt.prompt
 
+/**
+ * A Style is a simple DSL-like wrapper around Color that combines a
+ * foreground color with a background color. It can render a String
+ * of text using these combined colors. The rendered String will
+ * always be "closed" with the NoColor foreground/background color.
+ */
 case class Style(background: Color = Colors.NoColor, foreground: Color = Colors.NoColor) {
   def render(text: String) = s"${background.bg}${foreground.fg}${text}${Colors.NoColor.bg}${Colors.NoColor.fg}"
 
@@ -10,6 +16,7 @@ case class Style(background: Color = Colors.NoColor, foreground: Color = Colors.
   def fg(color: Int) = copy(foreground = Color(color))
 }
 
+/** Simple mixin trait providing easy access to Style factory methods. */
 trait Styles extends Colors {
   val NoStyle = Style()
 

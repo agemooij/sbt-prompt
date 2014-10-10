@@ -24,6 +24,6 @@ lazy val fancyPrompt = (project in file(".")).
     //     currentProject(fg(250).bg(235)).pad(" "),
     //     text(" ", NoStyle)
     //   ),
-    //   Separator("", (previous, next) => fg(previous.background).bg(next.background))
+    //   PromptletSeparator((previous, next) => StyledText("", fg(previous.style.background).bg(next.style.background)))
     // )
   )

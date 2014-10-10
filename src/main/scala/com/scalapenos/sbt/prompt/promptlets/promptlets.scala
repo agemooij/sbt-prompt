@@ -4,6 +4,9 @@ package promptlets
 import sbt._
 import Keys._
 
+/**
+ * A collection of handy Promptlet factory methods.
+ */
 trait Promptlets extends BasicPromptlets with GitPromptlets
 
 trait BasicPromptlets extends Styles {
