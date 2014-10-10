@@ -3,9 +3,9 @@ package com.scalapenos
 import sbt._
 import Keys._
 
-case class Prompt(segments: Seq[Segment], separator: Separator = Separators.NoSeparator) {
+case class PromptTheme(promptlets: Seq[Promptlet], separator: Separator = Separators.NoSeparator) {
   def render(state: State): String = {
-    val styled = segments.map(_.render(state))
+    val styled = promptlets.map(_.render(state)).filterNot(_.isEmpty)
     var separated = new collection.mutable.ArrayBuffer[StyledText]((styled.size * 2) - 1)
     var previous: StyledText = null
 
@@ -32,20 +32,20 @@ trait Separators extends Styles {
 }
 object Separators extends Separators
 
-case class Segment(content: State ⇒ StyledText) {
+case class Promptlet(content: State ⇒ StyledText) {
   def render(state: State): StyledText = content(state)
-  def mapText(f: String ⇒ String) = Segment(content.andThen(_.mapText(f)))
+  def mapText(f: String ⇒ String) = Promptlet(content.andThen(_.mapText(f)))
 
   def pad(padding: String) = mapText(text ⇒ padding + text + padding)
   def padLeft(prefix: String) = mapText(text ⇒ prefix + text)
   def padRight(suffix: String) = mapText(text ⇒ text + suffix)
 }
 
-trait Segments extends Styles {
-  def text(content: String, style: Style): Segment = text(_ ⇒ content, style)
-  def text(content: State ⇒ String, style: Style): Segment = Segment(state ⇒ StyledText(content(state), style))
+trait Promptlets extends Styles {
+  def text(content: String, style: Style): Promptlet = text(_ ⇒ content, style)
+  def text(content: State ⇒ String, style: Style): Promptlet = Promptlet(state ⇒ StyledText(content(state), style))
 
-  def currentProject(style: Style = NoStyle): Segment = Segment(state ⇒ {
+  def currentProject(style: Style = NoStyle): Promptlet = Promptlet(state ⇒ {
     val extracted = Project.extract(state)
     val project = extracted.currentRef.project
     val root = extracted.rootProject(extracted.currentRef.build)
@@ -53,7 +53,7 @@ trait Segments extends Styles {
     StyledText(if (project == root) project else s"${root}/${project}", style)
   })
 
-  def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle): Segment = Segment(state ⇒ {
+  def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle): Promptlet = Promptlet(state ⇒ {
     GitSupport.gitInfo(state) match {
       case Some(git) if git.dirty ⇒ StyledText(git.branch, dirty)
       case Some(git)              ⇒ StyledText(git.branch, clean)

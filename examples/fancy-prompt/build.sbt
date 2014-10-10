@@ -1,4 +1,5 @@
-import com.scalapenos.SbtPrompt._
+import com.scalapenos._
+import SbtPrompt._
 import autoImport._
 
 lazy val fancyPrompt = (project in file(".")).
@@ -11,17 +12,18 @@ lazy val fancyPrompt = (project in file(".")).
     organization := "com.scalapenos",
     organizationHomepage := Some(url("http://scalapenos.com/")),
     licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
-    // promptSeparator := NoSeparator,
-    promptSegments := Seq(
+    promptTheme := PromptTheme(Seq(
       gitBranch(clean = fg(green), dirty = fg(yellow)).padLeft("[").padRight("] "),
       currentProject(fg(245)),
       text(": ", NoStyle)
-    )
-    // promptSeparator := Separator("", (previous, next) => fg(previous.background).bg(next.background)),
-    // promptSegments := Seq(
-    //   text(" SBT ", fg(235).bg(26)),
-    //   gitBranch(clean = fg(235).bg(34), dirty = fg(235).bg(214)).padLeft("  ").padRight(" "),
-    //   currentProject(fg(250).bg(235)).pad(" "),
-    //   text(" ", NoStyle)
+    ))
+    // promptTheme := PromptTheme(
+    //   Seq(
+    //     text(" SBT ", fg(235).bg(26)),
+    //     gitBranch(clean = fg(235).bg(34), dirty = fg(235).bg(214)).padLeft("  ").padRight(" "),
+    //     currentProject(fg(250).bg(235)).pad(" "),
+    //     text(" ", NoStyle)
+    //   ),
+    //   Separator("", (previous, next) => fg(previous.background).bg(next.background))
     // )
   )
