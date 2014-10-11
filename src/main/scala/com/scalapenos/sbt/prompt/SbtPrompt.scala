@@ -15,12 +15,8 @@ object SbtPrompt extends AutoPlugin with Promptlets with PromptletSeparators {
   override def trigger = allRequirements
 
   override val projectSettings = Seq(
-    /** The default theme. */
-    promptTheme := PromptTheme(Seq(
-      gitBranch(clean = fg(green), dirty = fg(yellow)).padLeft("[").padRight("] "),
-      currentProject(),
-      text(": ", NoStyle)
-    )),
+    /** Sets the default theme. */
+    promptTheme := PromptThemes.Default,
 
     /**
      * Sets the SBT shell prompt to a function that renders the configured prompt theme.

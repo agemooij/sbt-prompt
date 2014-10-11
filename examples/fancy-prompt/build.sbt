@@ -12,18 +12,5 @@ lazy val fancyPrompt = (project in file(".")).
     organization := "com.scalapenos",
     organizationHomepage := Some(url("http://scalapenos.com/")),
     licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
-    promptTheme := PromptTheme(List(
-      gitBranch(clean = fg(green), dirty = fg(yellow)).padLeft("[").padRight("] "),
-      currentProject(fg(245)),
-      text(": ", NoStyle)
-    ))
-    // promptTheme := PromptTheme(
-    //   Seq(
-    //     text(" SBT ", fg(235).bg(26)),
-    //     gitBranch(clean = fg(235).bg(34), dirty = fg(235).bg(214)).padLeft("  ").padRight(" "),
-    //     currentProject(fg(250).bg(235)).pad(" "),
-    //     text(" ", NoStyle)
-    //   ),
-    //   (previous, next) => StyledText("", fg(previous.style.background).bg(next.style.background))
-    // )
+    promptTheme := PromptThemes.Default
   )
