@@ -39,9 +39,9 @@ If you want to customize the theme or if you are using a full Build.scala
 (multi-)project build, you will need to add the following imports:
 
 ```scala
-    import com.scalapenos.sbt.prompt._
-    import SbtPrompt._
-    import autoImport._
+import com.scalapenos.sbt.prompt._
+import SbtPrompt._
+import autoImport._
 ```
 
 If you want to use one of the existing themes, like the "Scalapenos theme"
