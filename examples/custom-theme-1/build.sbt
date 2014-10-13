@@ -13,9 +13,13 @@ lazy val customTheme1 = (project in file(".")).
     organizationHomepage := Some(url("http://scalapenos.com/")),
     licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
     promptTheme := PromptTheme(List(
-        currentProject(fg(blue)),
+        userName(fg(26)),
+        text("@", fg(red)),
+        hostName(fg(26)),
         text(" on ", fg(red)),
         gitBranch(clean = fg(green), dirty = fg(yellow)),
+        text(" in ", fg(red)),
+        currentProject(fg(magenta)),
         text(" ⇒ ", fg(red))
       ))
   )

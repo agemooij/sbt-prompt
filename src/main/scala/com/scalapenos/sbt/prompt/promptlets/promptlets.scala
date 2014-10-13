@@ -20,4 +20,10 @@ trait BasicPromptlets extends Styles {
 
     StyledText(if (project == root) project else s"${root}/${project}", style)
   })
+
+  def userName(style: Style = NoStyle): Promptlet = Promptlet(state ⇒ StyledText(cachedUserName, style))
+  def hostName(style: Style = NoStyle): Promptlet = Promptlet(state ⇒ StyledText(cachedHostName, style))
+
+  private lazy val cachedUserName = sys.props("user.name")
+  private lazy val cachedHostName = java.net.InetAddress.getLocalHost().getHostName().stripSuffix(".local")
 }
