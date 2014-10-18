@@ -52,3 +52,18 @@ promptTheme := PromptThemes.Scalapenos
 ```
 
 
+### Builtin Themes
+At the moment there are only very few builtin themes
+
+
+### Creating custom themes
+
+
+
+#### Color Codes
+The core assumption is that you're using
+
+- [Ansi escape code reference](http://misc.flogisoft.com/bash/tip_colors_and_formatting)
+- [Graphical overview of the Ansi 256 color codes](http://www.calmar.ws/vim/color-output.png)
+
+
