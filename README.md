@@ -69,7 +69,7 @@ A **promptlet** is a function that takes the [current project State](http://www.
 
 A **style** is a combination of a foregound color and a background color with a little builder API for combining two colors into a style.
 
-A **color** is a little wrapper around a color code from the ANSI 256 color space (i.e. a number from 0 up to an including 255) plus the ability to produce the correct escape codes for rendering themselves to any terminal configured to emulate *xterm-256color* (or compatible with it). There is a list of links to color references at the bottom of this README.
+A **color** is a little wrapper around a color code from the ANSI 256 color space (i.e. a number from 0 up to and including 255) plus the ability to produce the correct escape codes for rendering themselves to any terminal configured to emulate *xterm-256color* (or one compatible with it). There is a handy list of links to color references at the bottom of this README.
 
 Advanced prompt themes, like the builtin Scalapenos theme, might want to create some kind of styled transition between promptlets based on their separate styles. To enable this, a prompt theme can be configured with an optional **separator**, which is a function that takes the styled output of two promptlets to produce some styled text that will be rendered in between those two promptlets.
 
