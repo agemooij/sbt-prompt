@@ -5,7 +5,7 @@ import Keys._
 
 import promptlets._
 
-object PromptThemes extends Promptlets with PromptletSeparators {
+trait PromptThemes extends Promptlets with PromptletSeparators {
   /**
    * A minimalistic theme that will show:
    *
@@ -52,3 +52,5 @@ object PromptThemes extends Promptlets with PromptletSeparators {
     (previous, next) ⇒ StyledText("", fg(previous.style.background).bg(next.style.background))
   )
 }
+
+object PromptThemes extends PromptThemes

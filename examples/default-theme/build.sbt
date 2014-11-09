@@ -1,6 +1,3 @@
-import com.scalapenos.sbt.prompt._
-import SbtPrompt._
-import autoImport._
 
 lazy val defaultTheme = (project in file(".")).
   settings(

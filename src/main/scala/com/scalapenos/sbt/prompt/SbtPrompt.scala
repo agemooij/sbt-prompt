@@ -5,8 +5,8 @@ import Keys._
 
 import promptlets._
 
-object SbtPrompt extends AutoPlugin with Promptlets with PromptletSeparators {
-  object autoImport {
+object SbtPrompt extends AutoPlugin {
+  object autoImport extends Promptlets with PromptletSeparators with PromptThemes {
     val promptTheme = settingKey[PromptTheme]("A theme for rendering the SBT shell prompt.")
   }
 

@@ -1,6 +1,4 @@
-import com.scalapenos.sbt.prompt._
-import SbtPrompt._
-import autoImport._
+import com.scalapenos.sbt.prompt.SbtPrompt.autoImport._
 
 lazy val scalapenosTheme = (project in file(".")).
   settings(
@@ -13,6 +11,6 @@ lazy val scalapenosTheme = (project in file(".")).
     homepage := Some(url("https://github.com/agemooij/sbt-prompt")),
     organization := "com.scalapenos",
     organizationHomepage := Some(url("http://scalapenos.com/")),
-    promptTheme := PromptThemes.Scalapenos
     licenses := Seq(("MIT", url("http://opensource.org/licenses/MIT"))),
+    promptTheme := Scalapenos
   )
