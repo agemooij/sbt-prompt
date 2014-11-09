@@ -20,6 +20,6 @@ lazy val customTheme1 = (project in file(".")).
         gitBranch(clean = fg(green), dirty = fg(yellow)),
         text(" in ", fg(red)),
         currentProject(fg(magenta)),
-        text(" ⇒  ", fg(red))
+        text(" ⇒ 🍔  ", fg(red))
       ))
   )
