@@ -15,7 +15,7 @@ organization := "com.scalapenos"
 
 organizationHomepage := Some(url("http://scalapenos.com/"))
 
-licenses := Seq("MIT", url("http://opensource.org/licenses/MIT"))
+licenses := Seq(("MIT", url("http://opensource.org/licenses/MIT")))
 
 sbtPlugin := true
 

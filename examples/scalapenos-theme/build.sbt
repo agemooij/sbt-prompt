@@ -13,6 +13,6 @@ lazy val scalapenosTheme = (project in file(".")).
     homepage := Some(url("https://github.com/agemooij/sbt-prompt")),
     organization := "com.scalapenos",
     organizationHomepage := Some(url("http://scalapenos.com/")),
-    licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
     promptTheme := PromptThemes.Scalapenos
+    licenses := Seq(("MIT", url("http://opensource.org/licenses/MIT"))),
   )

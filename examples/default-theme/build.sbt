@@ -11,5 +11,5 @@ lazy val defaultTheme = (project in file(".")).
     homepage := Some(url("https://github.com/agemooij/sbt-prompt")),
     organization := "com.scalapenos",
     organizationHomepage := Some(url("http://scalapenos.com/")),
-    licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+    licenses := Seq(("MIT", url("http://opensource.org/licenses/MIT")))
   )
