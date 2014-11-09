@@ -36,22 +36,27 @@ default prompt theme, which looks like this (green for a clean Git repo, yellow 
 
 ![Default theme](https://dl.dropboxusercontent.com/u/282610/sbt-prompt-default-theme.png "Default theme")
 
-If you want to customize the theme, or if you are using a full Build.scala
-(multi-)project build, you will need to add the following imports:
+If you want to use one of the existing themes, like the "Scalapenos" theme
+shown at the top of this README, just add the following setting to your build.sbt:
+
+```scala
+promptTheme := Scalapenos
+```
+
+For the above to work, you will need to add the following imports to your build:
+
+```scala
+import com.scalapenos.sbt.prompt.SbtPrompt.autoImport._
+```
+
+If you are using a Build.scala definition or when using custom themes, please add these alternative imports:
 
 ```scala
 import com.scalapenos.sbt.prompt._
 import SbtPrompt.autoImport._
 ```
 
-If you want to use one of the existing themes, like the "Scalapenos theme"
-show at the top of this README, just add the following setting to your build.sbt or build.scala:
-
-```scala
-promptTheme := Scalapenos
-```
-
-Have a look at [the source code for ``PromptThemes``](https://github.com/agemooij/sbt-prompt/blob/master/src/main/scala/com/scalapenos/sbt/prompt/PromptThemes.scala) for the full list of built-in themes (a staggering 2 themes as of version 0.1) and how they are constructed by combining standard promptlets.
+The source code contains a number of small, self-contained example projects that show you how to [enable the plugin with the default theme](examples/default-theme/build.sbt), how to [enable the Scalapenos theme](examples/scalapenos-theme/build.sbt), and how to [configure a custom theme](examples/custom-theme-1/build.sbt).
 
 
 ## Customization
@@ -125,7 +130,7 @@ Example:
 
 ### Combining promptlets into a theme
 
-To define a theme you simply call its apply methodwith a sequence of promptlets and an optional separator. Here's a few examples:
+To define a theme you simply call its apply method with a sequence of promptlets and an optional separator. Here's a few examples:
 
 #### The default theme
 ```scala
@@ -165,9 +170,6 @@ PromptTheme(
   (previous, next) ⇒ StyledText("", fg(previous.style.background).bg(next.style.background))
 )
 ```
-
-### Example projects
-The source code contains a number of small, self-contained example projects that show off how to [enable the plugin with the default theme](examples/default-theme/build.sbt), how to [enable the Scalapenos theme](examples/scalapenos-theme/build.sbt), and how to [configure a custom theme](examples/custom-theme-1/build.sbt).
 
 
 ### Questions, issues, pull requests, etc.
