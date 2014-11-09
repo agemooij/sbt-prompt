@@ -36,7 +36,6 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
       .setPreference(RewriteArrowSymbols, true)
 
 // Releasing
-
 publishMavenStyle := false
 
 seq(bintrayPublishSettings:_*)
@@ -46,6 +45,3 @@ repository in bintray := "sbt-plugins"
 bintrayOrganization in bintray := None
 
 packageLabels in bintray := Seq("sbt", "plugin", "prompt", "awesome")
-
-
-
