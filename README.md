@@ -1,4 +1,4 @@
-*Note*: this README is still under construction but version 0.1 has now been released to Bintray and is waiting for inclusion in the central sbt plugin repository (Hi Josh! ;).
+**Note**: this README is still under construction but version 0.1 has now been released to Bintray and is waiting for inclusion in the central sbt plugin repository (Hi Josh! ;).
 
 ## A plugin that adds that extra dash of awesome to your SBT shell prompt
 If you're anything like me, you probably spent just as much, if not more,
@@ -22,7 +22,7 @@ That prompt consists of three **promptlets**:
 - the current Git branch name and whether the branch is clean (green) or dirty (yellow)
 - the current sbt project and, if aplicable, subproject.
 
-Other available promptlets:
+Other available standard promptlets are:
 
 - the current hostname
 - the current username
@@ -41,43 +41,43 @@ Add the following line to your plugins.sbt file:
     addSbtPlugin("com.scalapenos" % "sbt-prompt" % "0.1")
 
 For normal build.sbt projects, this will automatically enable the
-default prompt theme, which looks like this:
+default prompt theme, which looks like this (green for a clean Git repo, yellow for a dirty one):
 
-    ...
+![Default theme](https://dl.dropboxusercontent.com/u/282610/sbt-prompt-default-theme.png "Default theme")
 
-or like this when your Git working copy is "dirty":
-
-    ...
-
-
-
-If you want to customize the theme or if you are using a full Build.scala
+If you want to customize the theme, or if you are using a full Build.scala
 (multi-)project build, you will need to add the following imports:
 
 ```scala
 import com.scalapenos.sbt.prompt._
-import SbtPrompt._
-import autoImport._
+import SbtPrompt.autoImport._
 ```
 
 If you want to use one of the existing themes, like the "Scalapenos theme"
-show above, just add the following setting to your build.sbt or build.scala:
+show at the top of this README, just add the following setting to your build.sbt or build.scala:
 
 ```scala
 promptTheme := PromptThemes.Scalapenos
 ```
 
-### Builtin Themes
-At the moment there are only very few builtin themes
+Have a look at [the source code for ``PromptThemes``](https://github.com/agemooij/sbt-prompt/blob/master/src/main/scala/com/scalapenos/sbt/prompt/PromptThemes.scala) for the full list of built-in themes (a staggering 2 themes as of version 0.1) and how they are constructed by combining standard promptlets.
 
 
+## Customization
 
+### Available promptlets
 
-### Customization
+- ``currentProject``: the current project name, including the current sub-project when applicable
+- ``gitBranch``: the current Git branch name, with configurable styles for clean and dirty states
+- ``hostName``: the current system hostname
+- ``userName``: the current system username
+- ``text``: for rendering everything else
 
+All promptlets can be styled with foreground and background colors using
+the ANSI-256 color space and you can customize them even further with prefixes,
+suffixes, and other text transformers.
 
-
-#### Color Codes
+### Color Codes
 The core assumption is that you're using
 
 - [Ansi escape code reference](http://misc.flogisoft.com/bash/tip_colors_and_formatting)
