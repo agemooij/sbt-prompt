@@ -1,6 +1,6 @@
 **Note**: this README is still under construction but version 0.1 has now been released to Bintray and is waiting for inclusion in the central sbt plugin repository (Hi Josh! ;).
 
-## Add that extra dash of awesome to your SBT shell prompt
+## Add a dash of awesome to your SBT shell prompt
 If you're anything like me, you probably spent just as much, if not more,
 time in the SBT shell as you do in your normal shell. So why not make it
 look just as awesome?
