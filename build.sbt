@@ -1,8 +1,7 @@
+import bintray.Keys._
 import scalariform.formatter.preferences._
 
 name := "sbt-prompt"
-
-organization := "com.scalapenos"
 
 version := "0.1"
 
@@ -12,16 +11,20 @@ startYear := Some(2014)
 
 homepage := Some(url("https://github.com/agemooij/sbt-prompt"))
 
+organization := "com.scalapenos"
+
 organizationHomepage := Some(url("http://scalapenos.com/"))
 
-licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+licenses := Seq("MIT", url("http://opensource.org/licenses/MIT"))
 
 sbtPlugin := true
 
 scalacOptions := Seq("-deprecation", "-encoding", "utf8")
 
+// Hard dependency. It should always be installed automatically together with sbt-prompt
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.6.4")
 
+// Code formating
 scalariformSettings
 
 ScalariformKeys.preferences := ScalariformKeys.preferences.value
@@ -31,3 +34,18 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
       .setPreference(DoubleIndentClassDeclaration, true)
       .setPreference(PreserveDanglingCloseParenthesis, true)
       .setPreference(RewriteArrowSymbols, true)
+
+// Releasing
+
+publishMavenStyle := false
+
+seq(bintrayPublishSettings:_*)
+
+repository in bintray := "sbt-plugins"
+
+bintrayOrganization in bintray := None
+
+packageLabels in bintray := Seq("sbt", "plugin", "prompt", "awesome")
+
+
+
