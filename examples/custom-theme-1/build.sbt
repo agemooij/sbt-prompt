@@ -12,13 +12,14 @@ lazy val customTheme1 = (project in file(".")).
     organizationHomepage := Some(url("http://scalapenos.com/")),
     licenses := Seq(("MIT", url("http://opensource.org/licenses/MIT"))),
     promptTheme := PromptTheme(List(
+        text("[SBT] ", fg(green)),
         userName(fg(26)),
-        text("@", fg(red)),
+        text("@", fg(green)),
         hostName(fg(26)),
         text(" on ", fg(red)),
         gitBranch(clean = fg(green), dirty = fg(yellow)),
         text(" in ", fg(red)),
         currentProject(fg(magenta)),
-        text(" ⇒ ", fg(red))
+        text(" ⇒  ", fg(red))
       ))
   )
