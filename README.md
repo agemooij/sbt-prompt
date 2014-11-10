@@ -11,18 +11,17 @@ is pick one of the existing prompt themes or, if they're not awesome enough,
 just use an easy mini-DSL to create your own custom theme.
 
 Here's an example of the "Scalapenos" prompt theme, which I created to
-exactly match my zsh prompt:
+exactly match my zsh prompt (which is why this plugin was built):
 
 ![Example screenshot](https://dl.dropboxusercontent.com/u/282610/sbt-prompt-example-screenshot.png "Example Screenshot")
 
-That prompt consists of three **promptlets**:
+That example prompt consists of three **promptlets**:
 
 - a label to indicate that we are in the SBT shell
 - the current Git branch name and whether the branch is clean (green) or dirty (yellow)
 - the current sbt project and, if aplicable, subproject.
 
-All promptlets can be styled with foreground and background colors and you can customize them even further with prefixes, suffixes, and other text transformers.
-
+All promptlets can be styled with foreground and background colors and you can customize them even further with prefixes, suffixes, and other text transformers. See below for all customization options.
 
 ### Getting Started
 You will need to be using SBT 0.13.5 or higher for this plugin to work correctly.
