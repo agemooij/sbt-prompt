@@ -1,3 +1,4 @@
+
 ## Add a dash of awesome to your SBT shell prompt
 If you're anything like me, you probably spent just as much, if not more,
 time in the SBT shell as you do in your normal shell. So why not make it
@@ -172,7 +173,7 @@ PromptTheme(
 ```
 
 
-### Questions, issues, pull requests, etc.
+### Questions, issues, pull requests, cool themes, etc.
 Yes please!
 
 
