@@ -15,12 +15,11 @@ object SbtPrompt extends AutoPlugin {
   override def trigger = allRequirements
 
   override val projectSettings = Seq(
-    /** Sets the default theme. */
-    promptTheme := PromptThemes.Default,
-
-    /**
-     * Sets the SBT shell prompt to a function that renders the configured prompt theme.
-     */
+    /** Sets the SBT shell prompt to a function that renders the configured prompt theme. */
     shellPrompt := (implicit state ⇒ promptTheme.value.render(state))
+  )
+
+  override val globalSettings = Seq(
+    promptTheme := PromptThemes.Default
   )
 }
