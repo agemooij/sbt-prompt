@@ -16,8 +16,7 @@ trait PromptThemes extends Promptlets with PromptletSeparators {
    */
   val DefaultTheme = PromptTheme(List(
     gitBranch(clean = fg(green), dirty = fg(yellow)).padLeft("[").padRight("] "),
-    currentProject(),
-    text(": ", NoStyle)
+    currentProject(fg(248)).padRight(": ")
   ))
 
   /**
