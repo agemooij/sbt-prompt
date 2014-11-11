@@ -14,7 +14,7 @@ trait PromptThemes extends Promptlets with PromptletSeparators {
    *
    * This theme is the default theme
    */
-  val Default = PromptTheme(List(
+  val DefaultTheme = PromptTheme(List(
     gitBranch(clean = fg(green), dirty = fg(yellow)).padLeft("[").padRight("] "),
     currentProject(),
     text(": ", NoStyle)
@@ -42,7 +42,7 @@ trait PromptThemes extends Promptlets with PromptletSeparators {
    *  - https://gist.github.com/agnoster/3712874
    *  - https://github.com/robbyrussell/oh-my-zsh/blob/master/themes/agnoster.zsh-theme
    */
-  val Scalapenos = PromptTheme(
+  val ScalapenosTheme = PromptTheme(
     List(
       text(" SBT ", fg(235).bg(26)),
       gitBranch(clean = fg(235).bg(34), dirty = fg(235).bg(214)).padLeft("  ").padRight(" "),
@@ -51,6 +51,9 @@ trait PromptThemes extends Promptlets with PromptletSeparators {
     ),
     (previous, next) ⇒ StyledText("", fg(previous.style.background).bg(next.style.background))
   )
+
+  @deprecated("Renamed to prevent name clashes", "v0.2") val Default = DefaultTheme
+  @deprecated("Renamed to prevent name clashes", "v0.2") val Scalapenos = ScalapenosTheme
 }
 
 object PromptThemes extends PromptThemes

@@ -20,6 +20,6 @@ object SbtPrompt extends AutoPlugin {
   )
 
   override val globalSettings = Seq(
-    promptTheme := PromptThemes.Default
+    promptTheme := PromptThemes.DefaultTheme
   )
 }

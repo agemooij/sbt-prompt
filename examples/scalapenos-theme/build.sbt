@@ -12,5 +12,5 @@ lazy val scalapenosTheme = (project in file(".")).
     organization := "com.scalapenos",
     organizationHomepage := Some(url("http://scalapenos.com/")),
     licenses := Seq(("MIT", url("http://opensource.org/licenses/MIT"))),
-    promptTheme := Scalapenos
+    promptTheme := ScalapenosTheme
   )
