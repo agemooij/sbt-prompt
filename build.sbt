@@ -21,7 +21,9 @@ sbtPlugin := true
 
 scalacOptions := Seq("-deprecation", "-encoding", "utf8")
 
-// Hard dependency. It should always be installed automatically together with sbt-prompt
+// Hard dependency. It should always be installed automatically together
+// with sbt-prompt We cannot use plugin requirements yet because that only
+// seems to work on other AutoPlugins and the sbt-git plugin is not one.
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.6.4")
 
 // Code formating
