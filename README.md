@@ -19,7 +19,7 @@ That example prompt consists of three **promptlets**:
 
 - a label to indicate that we are in the SBT shell
 - the current Git branch name and whether the branch is clean (green) or dirty (yellow)
-- the current sbt project and, if aplicable, subproject.
+- the current sbt project and, if applicable, subproject.
 
 All promptlets can be styled with foreground and background colors and you can customize them even further with prefixes, suffixes, and other text transformers. See below for all customization options.
 
