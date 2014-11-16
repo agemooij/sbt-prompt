@@ -207,6 +207,12 @@ PromptTheme(
 ```
 
 
+### Examples
+- How to [enable the plugin with the default theme](examples/default-theme/build.sbt)
+- How to [enable the Scalapenos theme](examples/scalapenos-theme/build.sbt)
+- How to [configure a custom theme](examples/custom-theme-1/build.sbt)
+
+
 ### Questions, issues, pull requests, cool themes, etc.
 Yes please!
 
