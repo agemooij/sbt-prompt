@@ -29,7 +29,9 @@ You will need to be using SBT 0.13.5 or higher for this plugin to work correctly
 
 Add the following line to your plugins.sbt file:
 
-    addSbtPlugin("com.scalapenos" % "sbt-prompt" % "0.2")
+```scala
+addSbtPlugin("com.scalapenos" % "sbt-prompt" % "0.2")
+```
 
 For normal build.sbt projects, this will automatically enable the
 default prompt theme, which looks like this (green for a clean Git repo, yellow for a dirty one):
