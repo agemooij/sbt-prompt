@@ -21,7 +21,9 @@ sealed trait StyledText {
 }
 
 object StyledText {
-  def apply(text: String, style: Style = Styles.NoStyle): StyledText = NonEmpty(text, style)
+  def apply(text: String, style: Style = Styles.NoStyle): StyledText = {
+    if (text.trim.isEmpty) Empty else NonEmpty(text, style)
+  }
 
   case class NonEmpty(text: String, style: Style = Styles.NoStyle) extends StyledText {
     val isEmpty = false
