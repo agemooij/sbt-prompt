@@ -7,26 +7,32 @@ import Keys._
 trait GitPromptlets extends Styles {
   import com.typesafe.sbt.SbtGit._
 
-  def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle): Promptlet = Promptlet(state ⇒ {
-    gitInfo(state) match {
-      case Some(git) if git.dirty ⇒ StyledText(git.branch, dirty)
-      case Some(git)              ⇒ StyledText(git.branch, clean)
-      case None                   ⇒ StyledText.Empty
-    }
-  })
+  def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle): Promptlet = gitPromptlet {
+    case Some(git) ⇒ StyledText(git.branch, if (git.status.dirty) dirty else clean)
+    case None      ⇒ StyledText.Empty
+  }
 
-  private case class GitInfo(branch: String, dirty: Boolean)
+  def gitPromptlet(render: Option[GitInfo] ⇒ StyledText): Promptlet = Promptlet(state ⇒ render(gitInfo(state)))
+
+  case class GitInfo(branch: String, status: GitStatus)
+  case class GitStatus(nrModified: Int, nrUntracked: Int) {
+    val dirty = nrModified > 0 || nrUntracked > 0
+  }
+
+  // ==========================================================================
+  // Implementation details
+  // ==========================================================================
 
   private def gitInfo(state: State)(implicit extracted: Extracted = Project.extract(state)): Option[GitInfo] = {
     implicit val dir = extracted.get(baseDirectory)
 
     if (!isGitRepo(dir)) None
     else {
-      Some(GitInfo(currentBranch(state), isWorkingCopyDirty(state)))
+      Some(GitInfo(gitBranch(state), gitStatus(state)))
     }
   }
 
-  private def currentBranch(state: State)(implicit dir: File, extracted: Extracted): String = {
+  private def gitBranch(state: State)(implicit dir: File, extracted: Extracted): String = {
     val reader = extracted get GitKeys.gitReader
     val branchFromReader = reader.withGit(_.branch)
 
@@ -38,11 +44,13 @@ trait GitPromptlets extends Styles {
     }
   }
 
-  private def isWorkingCopyDirty(state: State)(implicit dir: File, extracted: Extracted): Boolean = {
-    val (_, runner) = extracted.runTask(GitKeys.gitRunner, state)
-    val result = runner("diff-index", "HEAD", "--")(dir, NoOpSbtLogger)
+  private def gitStatus(state: State)(implicit dir: File, extracted: Extracted): GitStatus = {
+    def parseStatus(in: String) = in.split('\n').toVector.map(_.trim).filterNot(_.isEmpty).partition(!_.startsWith("?"))
 
-    !result.trim.isEmpty
+    val (_, runner) = extracted.runTask(GitKeys.gitRunner, state)
+    val (modified, untracked) = parseStatus(runner("status", "--porcelain")(dir, NoOpSbtLogger))
+
+    GitStatus(modified.size, untracked.size)
   }
 
   @scala.annotation.tailrec
