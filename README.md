@@ -24,12 +24,11 @@ That example prompt consists of three **promptlets**:
 All promptlets can be styled with foreground and background colors and you can customize them even further with prefixes, suffixes, and other text transformers. See below for all customization options.
 
 ### Getting Started
-You will need to be using SBT 0.13.5 or higher for this plugin to work correctly.
-It was most extensively tested with SBT 0.13.6.
+You will need to be using SBT 0.13.5 or higher for this plugin to work correctly. It was most extensively tested with SBT 0.13.6.
 
 Add the following line to your plugins.sbt file:
 
-    addSbtPlugin("com.scalapenos" % "sbt-prompt" % "0.1")
+    addSbtPlugin("com.scalapenos" % "sbt-prompt" % "0.2")
 
 For normal build.sbt projects, this will automatically enable the
 default prompt theme, which looks like this (green for a clean Git repo, yellow for a dirty one):
@@ -43,7 +42,7 @@ shown at the top of this README, just add the following setting to your build.sb
 promptTheme := Scalapenos
 ```
 
-For the above to work, you will need to add the following imports to your build:
+You will also need to add the following import to your build:
 
 ```scala
 import com.scalapenos.sbt.prompt.SbtPrompt.autoImport._
@@ -63,39 +62,74 @@ The source code contains a number of small, self-contained example projects that
 Writing your own prompt theme is prety easy. Let's start with some definitions.
 
 ### Definitions
-A **prompt theme** is a sequence of so-called **promptlets** that together represent the entire prompt.
+A [**prompt theme**](src/main/scala/com/scalapenos/sbt/prompt/PromptTheme.scala) is a sequence of so-called **promptlets** that together represent the entire prompt.
 
-A **promptlet** is a function that takes the [current project State](http://www.scala-sbt.org/0.13.6/api/#sbt.State) and produces some styled text.
+A [**promptlet**](src/main/scala/com/scalapenos/sbt/prompt/Promptlet.scala) is a function that takes the [current project State](http://www.scala-sbt.org/0.13.6/api/#sbt.State) and produces some **styled text**.
 
-A **style** is a combination of a foregound color and a background color with a little builder API for combining two colors into a style.
+[**Styled text**](src/main/scala/com/scalapenos/sbt/prompt/StyledText.scala) is some static text combined with a **style**.
 
-A **color** is a little wrapper around a color code from the ANSI 256 color space (i.e. a number from 0 up to and including 255) plus the ability to produce the correct escape codes for rendering themselves to any terminal configured to emulate *xterm-256color* (or one compatible with it). There is a handy list of links to color references at the bottom of this README.
+A [**style**](src/main/scala/com/scalapenos/sbt/prompt/Styles.scala) is a combination of a foregound color and a background color with a little builder API for combining two colors into a style.
 
-Advanced prompt themes, like the builtin Scalapenos theme, might want to create some kind of styled transition between promptlets based on their separate styles. To enable this, a prompt theme can be configured with an optional **separator**, which is a function that takes the styled output of two promptlets to produce some styled text that will be rendered in between those two promptlets.
+A [**color**](src/main/scala/com/scalapenos/sbt/prompt/Colors.scala) is a little wrapper around a color code from the ANSI 256 color space (i.e. a number from 0 up to and including 255) plus the ability to produce the correct escape codes for rendering themselves to any terminal configured to emulate *xterm-256color* (or one compatible with it). There is a handy list of links to color references at the bottom of this README.
+
+Advanced prompt themes, like the builtin Scalapenos theme, might want to create some kind of styled transition between promptlets based on their separate styles. To enable this, a prompt theme can be configured with an optional [**separator**](src/main/scala/com/scalapenos/sbt/prompt/PromptSeparator.scala), which is a function that takes the styled output of two promptlets to produce some styled text that will be rendered in between those two promptlets.
 
 
 ### Available promptlets
-The list of builtin promptlets is relatively small but it covers all the basics.
+The list of builtin promptlets is relatively small but it should cover all the basics.
 
 #### Promplet: ``currentProject(style)``
 Renders the current project name, including the current sub-project when applicable. Example:
 
-    currentProject(fg(green))
+```scala
+currentProject(fg(green))
+```
 
 #### Promplet: ``gitBranch(cleanStyle, dirtyStyle)``
 Renders the current Git branch name, with configurable styles for clean and dirty states. Example:
 
-    gitBranch(clean = fg(green), dirty = fg(red))
+```scala
+gitBranch(clean = fg(green), dirty = fg(red))
+```
+
+If the current project is not a Git repository, this promptlet will produce ``StyledText.Empty``.
+
+#### Promplet: ``gitPromptlet(render: Option[GitInfo] ⇒ StyledText)``
+The more powerful form of ``gitBranch``, which lets you use more specific Git status information to produce some styled text.
+
+If the current project is not a Git repository, the ``Option[GitInfo]`` parameter to the ``render`` function will be ``None``.
+
+The available Git information is encoded in these two case classes:
+
+```scala
+case class GitInfo(branch: String, status: GitStatus)
+case class GitStatus(nrModified: Int, nrUntracked: Int) {
+  val dirty = nrModified > 0 || nrUntracked > 0
+}
+```
+
+The ``gitBranch`` promptlet is built using ``gitPromptlet``:
+
+```scala
+def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle): Promptlet = gitPromptlet {
+  case Some(git) ⇒ StyledText(git.branch, if (git.status.dirty) dirty else clean)
+  case None      ⇒ StyledText.Empty
+}
+```
 
 #### Promplet: ``hostName(style)``
 Renders the current system hostname. Example:
 
-    hostName(fg(blue))
+```scala
+hostName(fg(blue))
+```
 
 #### Promplet: ``userName(style)``
 Renders your current system username. Example:
 
-    userName(fg(white).bg(blue))
+```scala
+userName(fg(white).bg(blue))
+```
 
 #### Promplet: ``text(text: String, style)``
 Renders the specified static text. Example:
@@ -124,9 +158,9 @@ def currentProject(style: Style = NoStyle): Promptlet = text(state ⇒ {
 Sometimes you want to take an existing promptlet like ``gitBranch`` and add some extra text to it in the same style. Enter the ``mapText(String ⇒ String)`` function, available on all promptlets, which allows you to post-process the raw text any way you want. For your convenience some common post-processors like ``padLeft`` and ``padRight`` have alrady been defined.
 
 Example:
-
-    gitBranch(clean = fg(green), dirty = fg(yellow)).mapText(_.toUpperCase).padLeft("[").padRight("]")
-
+```scala
+gitBranch(clean = fg(green), dirty = fg(yellow)).mapText(_.toUpperCase).padLeft("[").padRight("]")
+```
 
 ### Combining promptlets into a theme
 
