@@ -1,0 +1,5 @@
+First public release of the SBt plugin that can make your SBT shell prompt look like this:
+
+![Example screenshot](https://dl.dropboxusercontent.com/u/282610/sbt-prompt-example-screenshot.png "Example Screenshot")
+
+[The README](https://github.com/agemooij/sbt-prompt) will (attempt to) explain everything you need to start pimping your SBT shell prompt.
