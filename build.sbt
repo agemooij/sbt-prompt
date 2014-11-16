@@ -3,7 +3,7 @@ import scalariform.formatter.preferences._
 
 name := "sbt-prompt"
 
-version := "0.2"
+version := "0.3-SNAPSHOT"
 
 description := "An SBT plugin for making your SBT prompt more awesome"
 
