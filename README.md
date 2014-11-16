@@ -72,7 +72,7 @@ A [**style**](src/main/scala/com/scalapenos/sbt/prompt/Styles.scala) is a combin
 
 A [**color**](src/main/scala/com/scalapenos/sbt/prompt/Colors.scala) is a little wrapper around a color code from the ANSI 256 color space (i.e. a number from 0 up to and including 255) plus the ability to produce the correct escape codes for rendering themselves to any terminal configured to emulate *xterm-256color* (or one compatible with it). There is a handy list of links to color references at the bottom of this README.
 
-Advanced prompt themes, like the builtin Scalapenos theme, might want to create some kind of styled transition between promptlets based on their separate styles. To enable this, a prompt theme can be configured with an optional [**separator**](src/main/scala/com/scalapenos/sbt/prompt/PromptSeparator.scala), which is a function that takes the styled output of two promptlets to produce some styled text that will be rendered in between those two promptlets.
+Advanced prompt themes, like the builtin Scalapenos theme, might want to create some kind of styled transition between promptlets based on their separate styles. To enable this, a prompt theme can be configured with an optional [**separator**](src/main/scala/com/scalapenos/sbt/prompt/PromptletSeparator.scala), which is a function that takes the styled output of two promptlets to produce some styled text that will be rendered in between those two promptlets.
 
 
 ### Available promptlets
@@ -95,9 +95,7 @@ gitBranch(clean = fg(green), dirty = fg(red))
 If the current project is not a Git repository, this promptlet will produce ``StyledText.Empty``.
 
 #### Promplet: ``gitPromptlet(render: Option[GitInfo] ⇒ StyledText)``
-The more powerful form of ``gitBranch``, which lets you use more specific Git status information to produce some styled text.
-
-If the current project is not a Git repository, the ``Option[GitInfo]`` parameter to the ``render`` function will be ``None``.
+The more powerful form of ``gitBranch``, which lets you use more specific Git status information to produce some styled text. If the current project is not a Git repository, the ``Option[GitInfo]`` parameter to the ``render`` function will be ``None``.
 
 The available Git information is encoded in these two case classes:
 
