@@ -47,3 +47,9 @@ repository in bintray := "sbt-plugins"
 bintrayOrganization in bintray := None
 
 packageLabels in bintray := Seq("sbt", "plugin", "prompt", "awesome")
+
+seq(lsSettings:_*)
+
+(LsKeys.tags in LsKeys.lsync) := Seq("sbt", "plugin", "prompt", "awesome")
+
+(description in LsKeys.lsync) := "An SBT plugin for making your SBT prompt more awesome"

@@ -1,0 +1,21 @@
+{
+  "organization" : "com.scalapenos",
+  "name" : "sbt-prompt",
+  "version" : "0.2",
+  "description" : "An SBT plugin for making your SBT prompt more awesome",
+  "site" : "https://github.com/agemooij/sbt-prompt",
+  "tags" : [ "sbt", "plugin", "prompt", "awesome" ],
+  "docs" : "",
+  "resolvers" : [ "https://oss.sonatype.org/content/repositories/releases" ],
+  "dependencies" : [ {
+    "organization" : "com.typesafe.sbt",
+    "name" : "sbt-git",
+    "version" : "0.6.4"
+  } ],
+  "scalas" : [ "2.10.4" ],
+  "licenses" : [ {
+    "name" : "MIT",
+    "url" : "http://opensource.org/licenses/MIT"
+  } ],
+  "sbt" : true
+}
