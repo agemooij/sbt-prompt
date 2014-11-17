@@ -1,0 +1,3 @@
+Version 0.2.1 fixes a small regression bug introduced in the rush to release version 0.2. It caused promtlets with non-empty but all-whitespace text to be rendered as the empty promptlet.
+
+The people responsible have been put on a one-day *"standard sbt prompt"* diet to make them see the error of their ways.

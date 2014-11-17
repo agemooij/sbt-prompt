@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-0.2-brightgreen.svg?style=flat "0.2") ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")
+![Version](https://img.shields.io/badge/version-0.2.1-brightgreen.svg?style=flat "0.2.1") ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")
 
 ## Add a dash of awesome to your SBT shell prompt
 If you're anything like me, you probably spent just as much, if not more,
@@ -30,7 +30,7 @@ You will need to be using SBT 0.13.5 or higher for this plugin to work correctly
 Add the following line to your plugins.sbt file:
 
 ```scala
-addSbtPlugin("com.scalapenos" % "sbt-prompt" % "0.2")
+addSbtPlugin("com.scalapenos" % "sbt-prompt" % "0.2.1")
 ```
 
 For normal build.sbt projects, this will automatically enable the
