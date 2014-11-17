@@ -22,7 +22,7 @@ sealed trait StyledText {
 
 object StyledText {
   def apply(text: String, style: Style = Styles.NoStyle): StyledText = {
-    if (text.trim.isEmpty) Empty else NonEmpty(text, style)
+    if (text.isEmpty) Empty else NonEmpty(text, style)
   }
 
   case class NonEmpty(text: String, style: Style = Styles.NoStyle) extends StyledText {
