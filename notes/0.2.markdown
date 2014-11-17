@@ -2,4 +2,4 @@ Version 0.2 contains the following minor fixes and improvements:
 
 - Makes the default prompt easier to override from configuration sites outside of your project definition, like ``~/.sbt/0.13/awesome-prompt.sbt`` or ``<team project>/personal-prompt-gitignored.sbt``
 - The ``gitBranch`` promptlet now also considers untracked files to be *dirty*.
-- Small tweak to the default theme that renders the current project with a non-default foreground color to make the difference between your prompt and wat you are typing a little more clear.
+- Small tweak to the default theme that renders the current project with a non-default foreground color to make the difference between your prompt and what you are typing a little more clear.
