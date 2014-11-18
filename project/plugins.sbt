@@ -4,4 +4,4 @@ resolvers += Resolver.url("bintray-sbt-plugin-releases", url("https://dl.bintray
 
 addSbtPlugin("me.lessis" % "bintray-sbt" % "0.1.2")
 
-addSbtPlugin("me.lessis" % "ls-sbt" % "0.1.3")
+addSbtPlugin("me.lessis" % "ls-sbt" % "0.1.3" exclude("org.slf4j", "slf4j-jdk14"))
