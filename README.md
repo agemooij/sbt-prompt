@@ -45,6 +45,8 @@ shown at the top of this README, just add the following setting to your build.sb
 promptTheme := Scalapenos
 ```
 
+> **Note:** The Scalapenos theme uses some fancy unicode symbols as separators but these are not usually supported by the average console font. You will need to configure your terminal with [a Powerline-patched font](https://github.com/Lokaltog/powerline-fonts) or things will look a bit weird.
+
 You will also need to add the following import to your build:
 
 ```scala
