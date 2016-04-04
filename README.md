@@ -25,33 +25,27 @@ That example prompt consists of three **promptlets**:
 All promptlets can be styled with foreground and background colors and you can customize them even further with prefixes, suffixes, and other text transformers. See below for all customization options.
 
 ### Getting Started
-You will need to be using SBT 0.13.5 or higher for this plugin to work correctly. It was most extensively tested with SBT 0.13.6.
+You will need to be using SBT 0.13.5 or higher for this plugin to work correctly. It was created for with SBT 0.13.6 and has been tested with every public release of SBT since.
 
-Add the following line to your plugins.sbt file:
+Add the following line to your plugins.sbt file (or `~/.sbt/0.13/plugins/plugin.sbt` to enable it for all projects):
 
 ```scala
 addSbtPlugin("com.scalapenos" % "sbt-prompt" % "0.2.1")
 ```
 
-For normal build.sbt projects, this will automatically enable the
-default prompt theme, which looks like this (green for a clean Git repo, yellow for a dirty one):
+For normal build.sbt projects, this will automatically enable the default prompt theme, which looks like this (green for a clean Git repo, yellow for a dirty one):
 
 ![Default theme](https://dl.dropboxusercontent.com/u/282610/sbt-prompt-default-theme.png "Default theme")
 
-If you want to use one of the existing themes, like the "Scalapenos" theme
-shown at the top of this README, just add the following setting to your build.sbt:
+If you want to use one of the existing themes, like the "Scalapenos" theme shown at the top of this README, just add the following import and setting to your build.sbt file (or to any sbt file in `~/.sbt/0.13/`):
 
 ```scala
+import com.scalapenos.sbt.prompt.SbtPrompt.autoImport._
+
 promptTheme := Scalapenos
 ```
 
 > **Note:** The Scalapenos theme uses some fancy unicode symbols as separators but these are not usually supported by the average console font. You will need to configure your terminal with [a Powerline-patched font](https://github.com/Lokaltog/powerline-fonts) or things will look a bit weird.
-
-You will also need to add the following import to your build:
-
-```scala
-import com.scalapenos.sbt.prompt.SbtPrompt.autoImport._
-```
 
 If you are using a Build.scala definition or when using custom themes, please add these alternative imports:
 
