@@ -1,55 +1,55 @@
-import bintray.Keys._
-import scalariform.formatter.preferences._
+import sbt._
 
-name := "sbt-prompt"
+import com.typesafe.sbt.SbtScalariform.ScalariformKeys._
 
-version := "0.3-SNAPSHOT"
+lazy val root = project
+  .copy(id = "sbt-prompt")
+  .in(file("."))
+  .settings(
+    addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.8.5"),
+    libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.21"
+  )
+  .settings(
+    sbtPlugin := true,
 
-description := "An SBT plugin for making your SBT prompt more awesome"
+    version := "0.3.0-SNAPSHOT",
+    organization := "com.scalapenos",
 
-startYear := Some(2014)
+    description := Description,
+    startYear := Some(2014),
+    homepage := Some(url("https://github.com/agemooij/sbt-prompt")),
+    organizationHomepage := Some(url("http://scalapenos.com/")),
 
-homepage := Some(url("https://github.com/agemooij/sbt-prompt"))
+    scalacOptions := Seq("-encoding", "utf8", "-target:jvm-1.7", "-deprecation", "-Xlog-reflective-calls"),
 
-organization := "com.scalapenos"
+    preferences in Compile := ScalariformPreferences,
+    preferences in Test    := ScalariformPreferences
+  )
+  .settings(lsSettings:_*)
+  .settings(
+    publishMavenStyle := false,
 
-organizationHomepage := Some(url("http://scalapenos.com/"))
+    bintrayOrganization := None,
+    bintrayRepository := "sbt-plugins",
+    bintrayPackageLabels := Labels,
 
-licenses := Seq(("MIT", url("http://opensource.org/licenses/MIT")))
+    licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
 
-sbtPlugin := true
+    (LsKeys.tags in LsKeys.lsync) := Labels,
+    (description in LsKeys.lsync) := Description
+  )
 
-scalacOptions := Seq("-deprecation", "-encoding", "utf8")
+lazy val Description = "An SBT plugin for making your SBT prompt more awesome"
+lazy val Labels = Seq("sbt", "plugin", "prompt", "awesome")
 
-// Hard dependency. It should always be installed automatically together
-// with sbt-prompt We cannot use plugin requirements yet because that only
-// seems to work on other AutoPlugins and the sbt-git plugin is not one.
-addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.6.4")
+lazy val ScalariformPreferences = {
+  import scalariform.formatter.preferences._
 
-// Code formating
-scalariformSettings
-
-ScalariformKeys.preferences := ScalariformKeys.preferences.value
-      .setPreference(AlignParameters, false)
-      .setPreference(AlignSingleLineCaseStatements, true)
-      .setPreference(AlignSingleLineCaseStatements.MaxArrowIndent, 90)
-      .setPreference(DoubleIndentClassDeclaration, true)
-      .setPreference(PreserveDanglingCloseParenthesis, true)
-      .setPreference(RewriteArrowSymbols, true)
-
-// Releasing
-publishMavenStyle := false
-
-seq(bintrayPublishSettings:_*)
-
-repository in bintray := "sbt-plugins"
-
-bintrayOrganization in bintray := None
-
-packageLabels in bintray := Seq("sbt", "plugin", "prompt", "awesome")
-
-seq(lsSettings:_*)
-
-(LsKeys.tags in LsKeys.lsync) := Seq("sbt", "plugin", "prompt", "awesome")
-
-(description in LsKeys.lsync) := "An SBT plugin for making your SBT prompt more awesome"
+  FormattingPreferences()
+    .setPreference(AlignParameters, false)
+    .setPreference(AlignSingleLineCaseStatements, true)
+    .setPreference(AlignSingleLineCaseStatements.MaxArrowIndent, 90)
+    .setPreference(DoubleIndentClassDeclaration, true)
+    .setPreference(RewriteArrowSymbols, true)
+    .setPreference(DanglingCloseParenthesis, Preserve)
+}

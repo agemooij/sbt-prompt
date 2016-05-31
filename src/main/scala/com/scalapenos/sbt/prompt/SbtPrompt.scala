@@ -12,14 +12,13 @@ object SbtPrompt extends AutoPlugin {
 
   import autoImport._
 
+  override def requires = com.typesafe.sbt.GitPlugin
   override def trigger = allRequirements
 
-  override val projectSettings = Seq(
-    /** Sets the SBT shell prompt to a function that renders the configured prompt theme. */
-    shellPrompt := (implicit state ⇒ promptTheme.value.render(state))
-  )
+  override def projectSettings = Seq(
+    promptTheme := PromptThemes.DefaultTheme,
 
-  override val globalSettings = Seq(
-    promptTheme := PromptThemes.DefaultTheme
+    /** Sets the SBT shell prompt to a function that renders the configured prompt theme. */
+    shellPrompt := (state ⇒ promptTheme.value.render(state))
   )
 }

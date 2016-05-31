@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-0.2.1-brightgreen.svg?style=flat "0.2.1") ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")
+![Version](https://img.shields.io/badge/version-0.2.2-brightgreen.svg?style=flat "0.2.2") ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")
 
 ## Add a dash of awesome to your SBT shell prompt
 If you're anything like me, you probably spent just as much, if not more,
@@ -30,7 +30,7 @@ You will need to be using SBT 0.13.5 or higher for this plugin to work correctly
 Add the following line to your plugins.sbt file (or `~/.sbt/0.13/plugins/plugin.sbt` to enable it for all projects):
 
 ```scala
-addSbtPlugin("com.scalapenos" % "sbt-prompt" % "0.2.1")
+addSbtPlugin("com.scalapenos" % "sbt-prompt" % "0.2.2")
 ```
 
 For normal build.sbt projects, this will automatically enable the default prompt theme, which looks like this (green for a clean Git repo, yellow for a dirty one):
@@ -42,7 +42,7 @@ If you want to use one of the existing themes, like the "Scalapenos" theme shown
 ```scala
 import com.scalapenos.sbt.prompt.SbtPrompt.autoImport._
 
-promptTheme := Scalapenos
+promptTheme := com.scalapenos.sbt.prompt.PromptThemes.ScalapenosTheme
 ```
 
 > **Note:** The Scalapenos theme uses some fancy unicode symbols as separators but these are not usually supported by the average console font. You will need to configure your terminal with [a Powerline-patched font](https://github.com/Lokaltog/powerline-fonts) or things will look a bit weird.
