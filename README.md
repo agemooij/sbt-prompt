@@ -114,6 +114,13 @@ def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle): Promptlet = gitPr
 }
 ```
 
+### Promptlet: ``currentScalaVersion(style)``
+Renders the current scala version in the project. Example:
+
+```scala
+currentScalaVersion(fg(red))
+```
+
 #### Promplet: ``hostName(style)``
 Renders the current system hostname. Example:
 
@@ -135,8 +142,7 @@ Renders the specified static text. Example:
 text(fg(235).bg(26)) // using raw ANSI 256 color codes
 ```
 
-
-####``text(text: State ⇒ String, style)``
+#### Promptlet: ``text(text: State ⇒ String, style)``
 Allows you to extract whatever information you want from the [current project State](http://www.scala-sbt.org/0.13.6/api/#sbt.State) and render it as dynamic text every time the prompt gets re-drawn.
 
 As an example, this is how the ``projectName`` promptlet is implemented:
@@ -201,7 +207,6 @@ PromptTheme(
   (previous, next) ⇒ StyledText("", fg(previous.style.background).bg(next.style.background))
 )
 ```
-
 
 ### Examples
 - How to [enable the plugin with the default theme](examples/default-theme/build.sbt)
