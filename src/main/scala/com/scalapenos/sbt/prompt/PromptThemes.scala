@@ -51,17 +51,6 @@ trait PromptThemes extends Promptlets with PromptletSeparators {
     (previous, next) ⇒ StyledText("", fg(previous.style.background).bg(next.style.background))
   )
 
-  val Scalapenos2Theme = PromptTheme(
-    List(
-      text(" SBT ", fg(235).bg(26)),
-      currentScalaVersion(fg(235).bg(red)).pad(" "),
-      gitBranch(clean = fg(235).bg(34), dirty = fg(235).bg(214)).padLeft("  ").padRight(" "),
-      currentProject(fg(250).bg(235)).pad(" "),
-      text(" ", NoStyle)
-    ),
-    (previous, next) ⇒ StyledText("", fg(previous.style.background).bg(next.style.background))
-  )
-
   @deprecated("Renamed to prevent name clashes", "v0.2") val Default = DefaultTheme
   @deprecated("Renamed to prevent name clashes", "v0.2") val Scalapenos = ScalapenosTheme
 }
