@@ -114,7 +114,7 @@ def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle): Promptlet = gitPr
 }
 ```
 
-### Promptlet: ``currentScalaVersion(style)``
+#### Promptlet: ``currentScalaVersion(style)``
 Renders the current scala version in the project. Example:
 
 ```scala
