@@ -24,6 +24,11 @@ trait BasicPromptlets extends Styles {
   def userName(style: Style = NoStyle): Promptlet = text(_ ⇒ cachedUserName, style)
   def hostName(style: Style = NoStyle): Promptlet = text(_ ⇒ cachedHostName, style)
 
+  def currentScalaVersion(style: Style = NoStyle) = text(state ⇒ {
+    val extracted = Project.extract(state)
+    extracted.get(scalaVersion)
+  }, style)
+
   private lazy val cachedUserName = sys.props("user.name")
   private lazy val cachedHostName = java.net.InetAddress.getLocalHost().getHostName().stripSuffix(".local")
 }
