@@ -15,8 +15,8 @@ trait GitPromptlets extends Styles {
   def gitPromptlet(render: Option[GitInfo] ⇒ StyledText): Promptlet = Promptlet(state ⇒ render(gitInfo(state)))
 
   case class GitInfo(branch: String, status: GitStatus)
-  case class GitStatus(nrModified: Int, nrUntracked: Int) {
-    val dirty = nrModified > 0 || nrUntracked > 0
+  case class GitStatus(nrStaged: Int, nrModified: Int, nrUntracked: Int) {
+    val dirty = nrStaged > 0 || nrModified > 0 || nrUntracked > 0
   }
 
   // ==========================================================================
@@ -45,12 +45,17 @@ trait GitPromptlets extends Styles {
   }
 
   private def gitStatus(state: State)(implicit dir: File, extracted: Extracted): GitStatus = {
-    def parseStatus(in: String) = in.split('\n').toVector.map(_.trim).filterNot(_.isEmpty).partition(!_.startsWith("?"))
-
     val (_, runner) = extracted.runTask(GitKeys.gitRunner, state)
-    val (modified, untracked) = parseStatus(runner("status", "--porcelain")(dir, NoOpSbtLogger))
 
-    GitStatus(modified.size, untracked.size)
+    def gitCmd(args: String*): Vector[String] = {
+      val output = runner(args: _*)(dir, NoOpSbtLogger)
+      output.split('\n').toVector.map(_.trim).filterNot(_.isEmpty)
+    }
+
+    val staged = gitCmd("diff", "--staged", "--name-status")
+    val (modified, untracked) = gitCmd("status", "--porcelain").partition(!_.startsWith("?"))
+
+    GitStatus(staged.size, modified.size, untracked.size)
   }
 
   @scala.annotation.tailrec
