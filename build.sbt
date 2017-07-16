@@ -7,7 +7,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.9.3"),
-    libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.21"
+    libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.25"
   )
   .settings(
     sbtPlugin := true,
@@ -18,7 +18,7 @@ lazy val root = project
     description := Description,
     startYear := Some(2014),
     homepage := Some(url("https://github.com/agemooij/sbt-prompt")),
-    organizationHomepage := Some(url("http://scalapenos.com/")),
+    organizationHomepage := Some(url("https://github.com/agemooij/sbt-prompt")),
 
     scalacOptions := Seq("-encoding", "utf8", "-target:jvm-1.7", "-deprecation", "-Xlog-reflective-calls"),
 
