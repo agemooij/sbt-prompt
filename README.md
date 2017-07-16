@@ -14,7 +14,7 @@ just use an easy mini-DSL to create your own custom theme.
 Here's an example of the "Scalapenos" prompt theme, which I created to
 exactly match my zsh prompt (which is why this plugin was built):
 
-![Example screenshot](https://dl.dropboxusercontent.com/u/282610/sbt-prompt-example-screenshot.png "Example Screenshot")
+![Example screenshot](sbt-prompt-example-screenshot.png "Example Screenshot")
 
 That example prompt consists of three **promptlets**:
 
@@ -35,7 +35,7 @@ addSbtPlugin("com.scalapenos" % "sbt-prompt" % "1.0.1")
 
 For normal build.sbt projects, this will automatically enable the default prompt theme, which looks like this (green for a clean Git repo, yellow for a dirty one):
 
-![Default theme](https://dl.dropboxusercontent.com/u/282610/sbt-prompt-default-theme.png "Default theme")
+![Default theme](sbt-prompt-default-theme.png "Default theme")
 
 If you want to use one of the existing themes, like the "Scalapenos" theme shown at the top of this README, just add the following import and setting to your build.sbt file (or to any sbt file in `~/.sbt/0.13/`):
 
