@@ -6,7 +6,7 @@ lazy val root = project
   .copy(id = "sbt-prompt")
   .in(file("."))
   .settings(
-    addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.8.5"),
+    addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.9.3"),
     libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.21"
   )
   .settings(
