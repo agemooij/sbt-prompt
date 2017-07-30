@@ -121,6 +121,22 @@ Renders the current scala version in the project. Example:
 currentScalaVersion(fg(red))
 ```
 
+#### Promptlet: ``currentSbtVersion(style)``
+Renders the current SBT version. Example:
+
+```scala
+currentSbtVersion(fg(26))
+```
+
+#### Promptlet: ``currentSbtKey(settingKey, style)``
+Renders the current value for the SBT key. Example:
+
+```scala
+currentSbtKey(version, fg(26))
+```
+
+That will generate a promptlet with the current version of the project. In fact, `currentScalaVersion` and `currentSbtVersion` are short-hands for `currentSbtKey(scalaVersion)` and `currentSbtKey(sbtVersion)`.
+
 #### Promplet: ``hostName(style)``
 Renders the current system hostname. Example:
 
