@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-1.0.1-brightgreen.svg?style=flat "1.0.1") ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")
+![Version](https://img.shields.io/badge/version-1.0.2-brightgreen.svg?style=flat "1.0.2") ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")
 
 ## Add a dash of awesome to your SBT shell prompt
 If you're anything like me, you probably spent just as much, if not more,
@@ -25,19 +25,19 @@ That example prompt consists of three **promptlets**:
 All promptlets can be styled with foreground and background colors and you can customize them even further with prefixes, suffixes, and other text transformers. See below for all customization options.
 
 ### Getting Started
-You will need to be using SBT 0.13.5 or higher for this plugin to work correctly. It was created for SBT 0.13.6 and has been tested with every public release of SBT since (up to and including 0.13.15).
+You will need to be using SBT 0.13.5 or higher for this plugin to work correctly. It was created for SBT 0.13.6 and has been tested with every public release of SBT since (up to and including 0.13.16, 1.0.0, and 1.0.1).
 
-Add the following line to your plugins.sbt file (or `~/.sbt/0.13/plugins/plugin.sbt` to enable it for all projects):
+Add the following line to your plugins.sbt file (or `~/.sbt/0.13/plugins/plugin.sbt`/`~/.sbt/0.1.0/plugins/plugin.sbt` to enable it for all projects):
 
 ```scala
-addSbtPlugin("com.scalapenos" % "sbt-prompt" % "1.0.1")
+addSbtPlugin("com.scalapenos" % "sbt-prompt" % "1.0.2")
 ```
 
 For normal build.sbt projects, this will automatically enable the default prompt theme, which looks like this (green for a clean Git repo, yellow for a dirty one):
 
 ![Default theme](sbt-prompt-default-theme.png "Default theme")
 
-If you want to use one of the existing themes, like the "Scalapenos" theme shown at the top of this README, just add the following import and setting to your build.sbt file (or to any sbt file in `~/.sbt/0.13/`):
+If you want to use one of the existing themes, like the "Scalapenos" theme shown at the top of this README, just add the following import and setting to your build.sbt file (or to any sbt file in `~/.sbt/0.13/`/`~/.sbt/0.1.0/`):
 
 ```scala
 import com.scalapenos.sbt.prompt.SbtPrompt.autoImport._
