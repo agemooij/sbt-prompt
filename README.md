@@ -27,7 +27,7 @@ All promptlets can be styled with foreground and background colors and you can c
 ### Getting Started
 You will need to be using SBT 0.13.5 or higher for this plugin to work correctly. It was created for SBT 0.13.6 and has been tested with every public release of SBT since (up to and including 0.13.16, 1.0.0, and 1.0.1).
 
-Add the following line to your plugins.sbt file (or `~/.sbt/0.13/plugins/plugin.sbt`/`~/.sbt/0.1.0/plugins/plugin.sbt` to enable it for all projects):
+Add the following line to your plugins.sbt file (or `~/.sbt/0.13/plugins/plugin.sbt`/`~/.sbt/1.0/plugins/plugin.sbt` to enable it for all projects):
 
 ```scala
 addSbtPlugin("com.scalapenos" % "sbt-prompt" % "1.0.2")
