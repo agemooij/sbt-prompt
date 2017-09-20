@@ -37,7 +37,7 @@ For normal build.sbt projects, this will automatically enable the default prompt
 
 ![Default theme](sbt-prompt-default-theme.png "Default theme")
 
-If you want to use one of the existing themes, like the "Scalapenos" theme shown at the top of this README, just add the following import and setting to your build.sbt file (or to any sbt file in `~/.sbt/0.13/`/`~/.sbt/0.1.0/`):
+If you want to use one of the existing themes, like the "Scalapenos" theme shown at the top of this README, just add the following import and setting to your build.sbt file (or to any sbt file in `~/.sbt/0.13/`/`~/.sbt/1.0/`):
 
 ```scala
 import com.scalapenos.sbt.prompt.SbtPrompt.autoImport._
