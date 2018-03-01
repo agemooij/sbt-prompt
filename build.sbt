@@ -1,9 +1,8 @@
 import sbt._
-
-import com.typesafe.sbt.SbtScalariform.ScalariformKeys._
+import scalariform.formatter.preferences._
 
 lazy val root = project
-  .copy(id = "sbt-prompt")
+  .withId("sbt-prompt")
   .in(file("."))
   .settings(
     sbtPlugin := true,
@@ -16,44 +15,33 @@ lazy val root = project
 
     libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.25",
 
-    version := "1.0.2",
+    version := "1.0.3-SNAPSHOT",
     organization := "com.scalapenos",
 
-    description := Description,
+    description := "An SBT plugin for making your SBT prompt more awesome",
     startYear := Some(2014),
     homepage := Some(url("https://github.com/agemooij/sbt-prompt")),
     organizationHomepage := Some(url("https://github.com/agemooij/sbt-prompt")),
 
     scalacOptions := Seq("-encoding", "utf8", "-deprecation", "-Xlog-reflective-calls"),
 
-    preferences in Compile := ScalariformPreferences,
-    preferences in Test    := ScalariformPreferences
+    scalariformPreferences := scalariformPreferences.value
+      .setPreference(AlignParameters, false)
+      .setPreference(AlignSingleLineCaseStatements, true)
+      .setPreference(AlignSingleLineCaseStatements.MaxArrowIndent, 90)
+      .setPreference(DoubleIndentConstructorArguments, true)
+      .setPreference(DoubleIndentMethodDeclaration, true)
+      .setPreference(RewriteArrowSymbols, true)
+      .setPreference(DanglingCloseParenthesis, Preserve)
+      .setPreference(NewlineAtEndOfFile, true)
+      .setPreference(AllowParamGroupsOnNewlines, true)
   )
-  .settings(lsSettings:_*)
   .settings(
     publishMavenStyle := false,
 
     bintrayOrganization := None,
     bintrayRepository := "sbt-plugins",
-    bintrayPackageLabels := Labels,
+    bintrayPackageLabels := Seq("sbt", "plugin", "prompt", "awesome"),
 
-    licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
-
-    (LsKeys.tags in LsKeys.lsync) := Labels,
-    (description in LsKeys.lsync) := Description
+    licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
   )
-
-lazy val Description = "An SBT plugin for making your SBT prompt more awesome"
-lazy val Labels = Seq("sbt", "plugin", "prompt", "awesome")
-
-lazy val ScalariformPreferences = {
-  import scalariform.formatter.preferences._
-
-  FormattingPreferences()
-    .setPreference(AlignParameters, false)
-    .setPreference(AlignSingleLineCaseStatements, true)
-    .setPreference(AlignSingleLineCaseStatements.MaxArrowIndent, 90)
-    .setPreference(DoubleIndentConstructorArguments, true)
-    .setPreference(RewriteArrowSymbols, true)
-    .setPreference(DanglingCloseParenthesis, Preserve)
-}
