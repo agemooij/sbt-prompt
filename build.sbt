@@ -9,13 +9,13 @@ lazy val root = project
     crossSbtVersions := Vector("0.13.16", "1.0.1"),
 
     libraryDependencies += {
-      val currentSbtVersion = (sbtBinaryVersion in pluginCrossBuild).value
-      Defaults.sbtPluginExtra("com.typesafe.sbt" % "sbt-git" % "0.9.3", currentSbtVersion, scalaBinaryVersion.value)
+      val currentSbtVersion = (pluginCrossBuild/sbtBinaryVersion).value
+      Defaults.sbtPluginExtra("com.github.sbt" % "sbt-git" % "2.0.0", currentSbtVersion, scalaBinaryVersion.value)
     },
 
     libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.25",
 
-    version := "1.0.3-SNAPSHOT",
+    version := "2.0.0-SNAPSHOT",
     organization := "com.scalapenos",
 
     description := "An SBT plugin for making your SBT prompt more awesome",

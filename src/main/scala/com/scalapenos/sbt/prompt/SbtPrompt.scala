@@ -12,7 +12,7 @@ object SbtPrompt extends AutoPlugin {
 
   import autoImport._
 
-  override def requires = com.typesafe.sbt.GitPlugin
+  override def requires = com.github.sbt.git.GitPlugin
   override def trigger = allRequirements
 
   override def projectSettings = Seq(
