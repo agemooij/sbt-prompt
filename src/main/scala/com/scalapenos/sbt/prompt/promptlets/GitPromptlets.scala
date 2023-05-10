@@ -5,7 +5,7 @@ import sbt._
 import Keys._
 
 trait GitPromptlets extends Styles {
-  import com.typesafe.sbt.SbtGit._
+  import com.github.sbt.git.SbtGit._
 
   def gitBranch(clean: Style = NoStyle, dirty: Style = NoStyle): Promptlet = gitPromptlet {
     case Some(git) ⇒ StyledText(git.branch, if (git.status.dirty) dirty else clean)

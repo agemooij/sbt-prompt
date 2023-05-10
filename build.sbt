@@ -6,11 +6,11 @@ lazy val root = project
   .in(file("."))
   .settings(
     sbtPlugin := true,
-    crossSbtVersions := Vector("0.13.16", "1.0.1"),
+    crossSbtVersions := Vector("1.8.2"),
 
     libraryDependencies += {
       val currentSbtVersion = (sbtBinaryVersion in pluginCrossBuild).value
-      Defaults.sbtPluginExtra("com.typesafe.sbt" % "sbt-git" % "0.9.3", currentSbtVersion, scalaBinaryVersion.value)
+      Defaults.sbtPluginExtra("com.github.sbt" % "sbt-git" % "2.0.1", currentSbtVersion, scalaBinaryVersion.value)
     },
 
     libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.25",
