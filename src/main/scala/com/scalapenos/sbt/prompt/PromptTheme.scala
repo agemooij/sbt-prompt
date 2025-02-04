@@ -1,7 +1,6 @@
 package com.scalapenos.sbt.prompt
 
 import sbt._
-import Keys._
 
 /**
  * A PromptTheme contains a sequence of Promptlets and an optional Separator.
@@ -9,11 +8,11 @@ import Keys._
  */
 case class PromptTheme(promptlets: Seq[Promptlet], separator: PromptletSeparator) {
   def render(state: State): String = {
-    val styled = promptlets.map(_.render(state)).filterNot(_.isEmpty)
-    val separated = new StringBuilder
-    var previous: StyledText = null
+    val styled               = promptlets.map(_.render(state)).filterNot(_.isEmpty)
+    val separated            = new StringBuilder
+    var previous: StyledText = null // scalafix:ok
 
-    for (next ← styled) {
+    for (next <- styled) {
       if (previous == null) {
         separated ++= next.rendered
       } else {

@@ -36,19 +36,20 @@ object Color {
  * Some named color aliases in the ANSI 16/256 color spaces.
  */
 trait Colors {
+
   /** Implementation of Color using the ANSI "default" color codes. */
   case object NoColor extends Color {
     val bg = "\u001b[49m"
     val fg = "\u001b[39m"
   }
 
-  val red = Color(9)
-  val green = Color(10)
-  val yellow = Color(11)
-  val blue = Color(12)
+  val red     = Color(9)
+  val green   = Color(10)
+  val yellow  = Color(11)
+  val blue    = Color(12)
   val magenta = Color(13)
-  val cyan = Color(14)
-  val white = Color(15)
+  val cyan    = Color(14)
+  val white   = Color(15)
 }
 
 object Colors extends Colors
