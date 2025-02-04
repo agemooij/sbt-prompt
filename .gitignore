@@ -43,3 +43,10 @@ rebb-website/main/generated-twirl-sources/*
 revision.txt
 
 .DS_Store
+/.bloop
+/.bsp
+/.metals
+/.vscode
+/project/.bloop
+/project/project
+/project/metals.sbt

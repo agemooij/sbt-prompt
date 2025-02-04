@@ -1,21 +1,22 @@
 import sbt._
-import scalariform.formatter.preferences._
+
+Global / onChangedBuildSource := ReloadOnSourceChanges
 
 lazy val root = project
   .withId("sbt-prompt")
   .in(file("."))
   .settings(
     sbtPlugin := true,
-    crossSbtVersions := Vector("1.8.2"),
+    crossSbtVersions := Vector("1.10.7"),
 
     libraryDependencies += {
-      val currentSbtVersion = (sbtBinaryVersion in pluginCrossBuild).value
-      Defaults.sbtPluginExtra("com.github.sbt" % "sbt-git" % "2.0.1", currentSbtVersion, scalaBinaryVersion.value)
+      val currentSbtVersion = (pluginCrossBuild/sbtBinaryVersion).value
+      Defaults.sbtPluginExtra("com.github.sbt" % "sbt-git" % "2.1.0", currentSbtVersion, scalaBinaryVersion.value)
     },
 
-    libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.25",
+    libraryDependencies += "org.slf4j" % "slf4j-nop" % "2.0.16",
 
-    version := "1.0.3-SNAPSHOT",
+    version := "2.0.0-SNAPSHOT",
     organization := "com.scalapenos",
 
     description := "An SBT plugin for making your SBT prompt more awesome",
@@ -23,25 +24,15 @@ lazy val root = project
     homepage := Some(url("https://github.com/agemooij/sbt-prompt")),
     organizationHomepage := Some(url("https://github.com/agemooij/sbt-prompt")),
 
-    scalacOptions := Seq("-encoding", "utf8", "-deprecation", "-Xlog-reflective-calls"),
+    scalacOptions := Seq("-encoding", "utf8", "-deprecation", "-Xlog-reflective-calls", "-Ywarn-unused-import"),
 
-    scalariformPreferences := scalariformPreferences.value
-      .setPreference(AlignParameters, false)
-      .setPreference(AlignSingleLineCaseStatements, true)
-      .setPreference(AlignSingleLineCaseStatements.MaxArrowIndent, 90)
-      .setPreference(DoubleIndentConstructorArguments, true)
-      .setPreference(DoubleIndentMethodDeclaration, true)
-      .setPreference(RewriteArrowSymbols, true)
-      .setPreference(DanglingCloseParenthesis, Preserve)
-      .setPreference(NewlineAtEndOfFile, true)
-      .setPreference(AllowParamGroupsOnNewlines, true)
+    semanticdbVersion := scalafixSemanticdb.revision,
+    semanticdbEnabled := true,
+    scalafmtOnCompile := true,
+    scalafixOnCompile := true,
   )
   .settings(
     publishMavenStyle := false,
-
-    bintrayOrganization := None,
-    bintrayRepository := "sbt-plugins",
-    bintrayPackageLabels := Seq("sbt", "plugin", "prompt", "awesome"),
 
     licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
   )
