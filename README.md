@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-2.0.0-beta1-brightgreen.svg?style=flat "2.0.0-beta1") ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")
+![Version](https://img.shields.io/badge/version-2.0.0--beta1-brightgreen.svg?style=flat "2.0.0-beta1") ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")
 
 ## Add a dash of awesome to your SBT shell prompt
 If you're anything like me, you probably spent just as much, if not more,
