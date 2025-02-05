@@ -8,7 +8,6 @@ lazy val root = project
   .in(file("."))
   .settings(
     sbtPlugin := true,
-    crossSbtVersions := Vector("1.10.7"),
 
     libraryDependencies += {
       val currentSbtVersion = (pluginCrossBuild/sbtBinaryVersion).value
@@ -17,13 +16,20 @@ lazy val root = project
 
     libraryDependencies += "org.slf4j" % "slf4j-nop" % "2.0.16",
 
-    version := "2.0.0-SNAPSHOT",
-    
-
     description := "An SBT plugin for making your SBT prompt more awesome",
+    organization := "com.scalapenos",
+    licenses := List("MIT" -> url("http://opensource.org/licenses/MIT")),
     startYear := Some(2014),
     homepage := Some(url("https://github.com/agemooij/sbt-prompt")),
-    organizationHomepage := Some(url("https://github.com/agemooij/sbt-prompt")),
+    organizationHomepage := Some(url("https://github.com/agemooij/sbt-prompt")),  
+    developers := List(
+      Developer(
+        "agemooij",
+        "Age Mooij",
+        "age.mooij@gmail.com",
+        url("https://github.com/agemooij/")
+      )
+    ),
 
     scalacOptions := Seq("-encoding", "utf8", "-deprecation", "-Xlog-reflective-calls", "-Ywarn-unused-import"),
 
@@ -35,18 +41,4 @@ lazy val root = project
     tpolecatScalacOptions ++= Set(ScalacOptions.explain),
     Test / tpolecatExcludeOptions ++= Set(ScalacOptions.warnNonUnitStatement, ScalacOptions.warnValueDiscard),
     Test / console / tpolecatExcludeOptions ++= ScalacOptions.defaultConsoleExclude,
-  )
-  .settings(
-    organization := "com.scalapenos",
-    licenses := List("MIT" -> url("http://opensource.org/licenses/MIT")),
-    homepage := Some(url("https://github.com/agemooij/sbt-prompt")),
-  
-    developers := List(
-      Developer(
-        "agemooij",
-        "Age Mooij",
-        "age.mooij@gmail.com",
-        url("https://github.com/agemooij/")
-      )
-    )
   )
