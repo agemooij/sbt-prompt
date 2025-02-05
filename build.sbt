@@ -1,4 +1,5 @@
 import sbt._
+import org.typelevel.scalacoptions.ScalacOptions
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
@@ -17,7 +18,7 @@ lazy val root = project
     libraryDependencies += "org.slf4j" % "slf4j-nop" % "2.0.16",
 
     version := "2.0.0-SNAPSHOT",
-    organization := "com.scalapenos",
+    
 
     description := "An SBT plugin for making your SBT prompt more awesome",
     startYear := Some(2014),
@@ -30,9 +31,22 @@ lazy val root = project
     semanticdbEnabled := true,
     scalafmtOnCompile := true,
     scalafixOnCompile := true,
+
+    tpolecatScalacOptions ++= Set(ScalacOptions.explain),
+    Test / tpolecatExcludeOptions ++= Set(ScalacOptions.warnNonUnitStatement, ScalacOptions.warnValueDiscard),
+    Test / console / tpolecatExcludeOptions ++= ScalacOptions.defaultConsoleExclude,
   )
   .settings(
-    publishMavenStyle := false,
-
-    licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+    organization := "com.scalapenos",
+    licenses := List("MIT" -> url("http://opensource.org/licenses/MIT")),
+    homepage := Some(url("https://github.com/agemooij/sbt-prompt")),
+  
+    developers := List(
+      Developer(
+        "agemooij",
+        "Age Mooij",
+        "age.mooij@gmail.com",
+        url("https://github.com/agemooij/")
+      )
+    )
   )
