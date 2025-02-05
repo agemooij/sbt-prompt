@@ -2,6 +2,7 @@ package com.scalapenos.sbt.prompt
 package promptlets
 
 import sbt._
+
 import Keys._
 
 trait GitPromptlets extends Styles {
@@ -33,7 +34,7 @@ trait GitPromptlets extends Styles {
   }
 
   private def gitBranch(state: State)(implicit dir: File, extracted: Extracted): String = {
-    val reader = extracted get GitKeys.gitReader
+    val reader           = extracted get GitKeys.gitReader
     val branchFromReader = reader.withGit(_.branch)
 
     if (branchFromReader != null) branchFromReader
@@ -47,7 +48,7 @@ trait GitPromptlets extends Styles {
   private def gitStatus(state: State)(implicit dir: File, extracted: Extracted): GitStatus = {
     def parseStatus(in: String) = in.split('\n').toVector.map(_.trim).filterNot(_.isEmpty).partition(!_.startsWith("?"))
 
-    val (_, runner) = extracted.runTask(GitKeys.gitRunner, state)
+    val (_, runner)           = extracted.runTask(GitKeys.gitRunner, state)
     val (modified, untracked) = parseStatus(runner("status", "--porcelain")(dir, NoOpSbtLogger))
 
     GitStatus(modified.size, untracked.size)
@@ -64,14 +65,14 @@ trait GitPromptlets extends Styles {
   }
 
   private object NoOpSbtLogger extends Logger {
-    def trace(t: ⇒ Throwable): Unit = {}
-    def success(message: ⇒ String): Unit = {}
+    def trace(t: ⇒ Throwable): Unit                      = {}
+    def success(message: ⇒ String): Unit                 = {}
     def log(level: Level.Value, message: ⇒ String): Unit = {}
   }
 
   private object DebugSbtLogger extends Logger {
-    def trace(t: ⇒ Throwable): Unit = {}
-    def success(message: ⇒ String): Unit = { println(s"SUCCESS: ${message}.") }
+    def trace(t: ⇒ Throwable): Unit                      = {}
+    def success(message: ⇒ String): Unit                 = { println(s"SUCCESS: ${message}.") }
     def log(level: Level.Value, message: ⇒ String): Unit = { println(s"LOG: ${message}.") }
   }
 }

@@ -1,8 +1,5 @@
 package com.scalapenos.sbt.prompt
 
-import sbt._
-import Keys._
-
 /**
  * A PromptletSeparator is a function that takes two StyledText
  * instances, one before the separator and one after it, and produces

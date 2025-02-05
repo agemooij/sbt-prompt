@@ -1,8 +1,8 @@
 package com.scalapenos.sbt.prompt
 
 import sbt._
-import Keys._
 
+import Keys._
 import promptlets._
 
 object SbtPrompt extends AutoPlugin {
@@ -13,7 +13,7 @@ object SbtPrompt extends AutoPlugin {
   import autoImport._
 
   override def requires = com.github.sbt.git.GitPlugin
-  override def trigger = allRequirements
+  override def trigger  = allRequirements
 
   override def projectSettings = Seq(
     promptTheme := PromptThemes.DefaultTheme,

@@ -1,11 +1,9 @@
 package com.scalapenos.sbt.prompt
 
-import sbt._
-import Keys._
-
 import promptlets._
 
 trait PromptThemes extends Promptlets with PromptletSeparators {
+
   /**
    * A minimalistic theme that will show:
    *
@@ -14,10 +12,12 @@ trait PromptThemes extends Promptlets with PromptletSeparators {
    *
    * This theme is the default theme
    */
-  val DefaultTheme = PromptTheme(List(
-    gitBranch(clean = fg(green), dirty = fg(yellow)).padLeft("[").padRight("] "),
-    currentProject(fg(248)).padRight(": ")
-  ))
+  val DefaultTheme = PromptTheme(
+    List(
+      gitBranch(clean = fg(green), dirty = fg(yellow)).padLeft("[").padRight("] "),
+      currentProject(fg(248)).padRight(": ")
+    )
+  )
 
   /**
    * An advanced theme that uses a combination of fancy colors and unicode separators
@@ -51,7 +51,7 @@ trait PromptThemes extends Promptlets with PromptletSeparators {
     (previous, next) ⇒ StyledText("", fg(previous.style.background).bg(next.style.background))
   )
 
-  @deprecated("Renamed to prevent name clashes", "v0.2") val Default = DefaultTheme
+  @deprecated("Renamed to prevent name clashes", "v0.2") val Default    = DefaultTheme
   @deprecated("Renamed to prevent name clashes", "v0.2") val Scalapenos = ScalapenosTheme
 }
 

@@ -1,7 +1,6 @@
 package com.scalapenos.sbt.prompt
 
 import sbt._
-import Keys._
 
 /**
  * A Promptlet represents a function that can take the current SBT
@@ -13,9 +12,9 @@ import Keys._
  */
 case class Promptlet(content: State ⇒ StyledText) {
   def render(state: State): StyledText = content(state)
-  def mapText(f: String ⇒ String) = Promptlet(content.andThen(_.mapText(f)))
+  def mapText(f: String ⇒ String)      = Promptlet(content.andThen(_.mapText(f)))
 
-  def pad(padding: String) = mapText(text ⇒ padding + text + padding)
-  def padLeft(prefix: String) = mapText(text ⇒ prefix + text)
+  def pad(padding: String)     = mapText(text ⇒ padding + text + padding)
+  def padLeft(prefix: String)  = mapText(text ⇒ prefix + text)
   def padRight(suffix: String) = mapText(text ⇒ text + suffix)
 }

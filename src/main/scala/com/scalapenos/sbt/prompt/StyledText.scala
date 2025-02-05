@@ -16,7 +16,7 @@ sealed trait StyledText {
    */
   def mapText(f: String ⇒ String): StyledText
 
-  lazy val rendered = style.render(text)
+  lazy val rendered     = style.render(text)
   override def toString = rendered
 }
 
@@ -26,7 +26,7 @@ object StyledText {
   }
 
   case class NonEmpty(text: String, style: Style = Styles.NoStyle) extends StyledText {
-    val isEmpty = false
+    val isEmpty                     = false
     def mapText(f: String ⇒ String) = copy(text = f(text))
   }
 
@@ -37,10 +37,10 @@ object StyledText {
    * instance with the current Git branch name.
    */
   case object Empty extends StyledText {
-    val text = ""
+    val text  = ""
     val style = Styles.NoStyle
 
-    val isEmpty = true
+    val isEmpty                     = true
     def mapText(f: String ⇒ String) = this
   }
 }
