@@ -31,6 +31,8 @@ lazy val root = project
       )
     ),
 
+    versionScheme := Some("semver-spec"),
+
     scalacOptions := Seq("-encoding", "utf8", "-deprecation", "-Xlog-reflective-calls", "-Ywarn-unused-import"),
 
     semanticdbVersion := scalafixSemanticdb.revision,
