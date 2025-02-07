@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-2.0.0--beta1-brightgreen.svg?style=flat "2.0.0-beta1") ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")
+![Version](https://img.shields.io/badge/version-2.0.0-brightgreen.svg?style=flat "2.0.0") ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat "MIT")
 
 ## Add a dash of awesome to your SBT shell prompt
 If you're anything like me, you probably spent just as much, if not more,
@@ -31,7 +31,7 @@ It was lasted tested with SBT 0.10.7
 Add the following line to your `plugins.sbt` file (or `~/.sbt/1.0/plugins/plugin.sbt` to enable it for all projects):
 
 ```scala
-addSbtPlugin("com.scalapenos" % "sbt-prompt" % "2.0.0-beta1")
+addSbtPlugin("com.scalapenos" % "sbt-prompt" % "2.0.0")
 ```
 
 For normal `build.sbt` projects, this will automatically enable the default prompt theme, which looks like this (green for a clean Git repo, yellow for a dirty one):
